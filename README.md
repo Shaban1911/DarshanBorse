@@ -83,6 +83,18 @@ QA switches: `?intro=0` skips the opening sequence, `?intro=1` forces it.
   intro and the pinned stage.
 - Dhule and Pune are office addresses, not a service area.
 
+## Quality
+
+```sh
+npm run verify     # typecheck, lint, unit tests, production build
+npm run test:e2e   # end-to-end + accessibility (Playwright, axe) against the dev server
+```
+
+CI (`.github/workflows/ci.yml`) runs the same on every push, plus Lighthouse
+budgets (`lighthouserc.json`). Design rationale, the accessibility statement
+and the contribution rules live in `docs/` and `CONTRIBUTING.md`; releases in
+`CHANGELOG.md`.
+
 ## Before launch
 
 1. Set `siteUrl` in `src/lib/site.ts` to the live origin (no trailing slash).
@@ -93,3 +105,5 @@ QA switches: `?intro=0` skips the opening sequence, `?intro=1` forces it.
 3. Confirm the values marked `PLACEHOLDER_` in `src/lib/site.ts`, and the
    IRDAI licence number.
 4. `npm run build`, then `npx wrangler deploy` from `.output`.
+
+© Darshan Borse. All rights reserved. Site by Shahaban Mallick.
