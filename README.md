@@ -52,9 +52,9 @@ QA switches: `?intro=0` skips the opening sequence, `?intro=1` forces it.
 | `src/components/Reveal.tsx`, `RollText.tsx` | Scroll reveals and per-word masks. |
 | `src/components/ResponsiveImage.tsx` | AVIF/WebP/fallback `<picture>` from the variants in `src/assets`. |
 | `src/components/Cursor.tsx` | Pointer-only custom cursor (inverts over ink). |
-| `src/server.ts`, `src/start.ts`, `src/lib/error-*.ts` | Server entry with a friendly 500 page; CSRF middleware. |
+| `src/server.ts`, `src/start.ts`, `src/lib/error-*.ts` | Server entry: security headers on every document, a friendly 500 page; CSRF middleware. |
 | `scripts/seo.mjs` | Pre-build: robots.txt, and sitemap.xml once `siteUrl` is set. |
-| `public/_headers` | Security and cache headers for Cloudflare. |
+| `public/_headers` | Cache and security headers for static assets. Documents get their security headers from `src/server.ts`. |
 
 ## Design system, in short
 
