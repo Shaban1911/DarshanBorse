@@ -37,9 +37,12 @@ import { introWords } from "@/lib/site";
  */
 const SKIP_GRACE_MS = 600;
 
+/** Reads a <time> token. Minifiers rewrite "2000ms" as "2s", so both units are handled. */
 function readMs(style: CSSStyleDeclaration, token: string, fallback: number): number {
-  const value = parseFloat(style.getPropertyValue(token));
-  return Number.isFinite(value) ? value : fallback;
+  const raw = style.getPropertyValue(token).trim();
+  const value = parseFloat(raw);
+  if (!Number.isFinite(value)) return fallback;
+  return raw.endsWith("ms") ? value : value * 1000;
 }
 
 /**
