@@ -68,9 +68,9 @@ export function HeroGoal({ words }: { words: readonly string[] }) {
     // has been sitting there a while already: change it soon, not a full
     // interval from now. (A skipped intro restarts the entrance, so its
     // animationend still arrives.)
-    const entranceRunning = node
-      .getAnimations({ subtree: true })
-      .some((a) => a.playState === "running");
+    const entranceRunning = (node.getAnimations?.({ subtree: true }) ?? []).some(
+      (a) => a.playState === "running",
+    );
     if (!entranceRunning) start(1200);
 
     const fallback = window.setTimeout(() => start(0), FALLBACK_START_MS);

@@ -22,7 +22,8 @@ import {
  * Internet and older Android. Reduced motion: instant change. Browser
  * back/forward cannot be intercepted, so those change instantly too.
  *
- * Keep the timings in step with the transitions in the stylesheet.
+ * The timings below are the single source: they are passed to the stylesheet
+ * as --wipe-cover and --wipe-reveal on the overlay.
  */
 const COVER_MS = 480;
 const SETTLE_MS = 80;
@@ -88,7 +89,14 @@ export function PageWipe({ children }: { children: ReactNode }) {
   return (
     <WipeContext.Provider value={go}>
       {children}
-      <div className={`wipe is-${phase}`} aria-hidden="true">
+      <div
+        className={`wipe is-${phase}`}
+        aria-hidden="true"
+        style={{
+          ["--wipe-cover" as string]: `${COVER_MS}ms`,
+          ["--wipe-reveal" as string]: `${REVEAL_MS}ms`,
+        }}
+      >
         <div className="wipe-back" />
         <div className="wipe-left" />
         <div className="wipe-right" />

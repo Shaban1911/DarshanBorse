@@ -28,17 +28,19 @@ import { introWords } from "@/lib/site";
  */
 
 /**
- * Keep in step with the tokens in styles.css. "Cinematic" profile, paced to
- * the reference (~2s per word):
- *   word 2000ms · pause 650ms · curtain 1300ms  ->  ~8s to a settled hero,
- *   each word fully formed for ~650ms.
+ * The stylesheet owns the timing (src/styles/intro.css: --word-ms, --pause-ms,
+ * --lift-ms); this component reads those tokens at runtime so there is one
+ * source of truth. The defaults below only cover a missing stylesheet.
+ *   word 2000ms · pause 650ms · curtain 1300ms  ->  ~8s to a settled hero.
  * Long enough that the skip must be discoverable: a progress hairline runs
  * the whole time and a "tap to skip" hint fades in after a second.
  */
-export const INTRO_WORD_MS = 2000;
-export const INTRO_LIFT_MS = 650 + 1300;
-const TOTAL_MS = introWords.length * INTRO_WORD_MS + INTRO_LIFT_MS;
 const SKIP_GRACE_MS = 600;
+
+function readMs(style: CSSStyleDeclaration, token: string, fallback: number): number {
+  const value = parseFloat(style.getPropertyValue(token));
+  return Number.isFinite(value) ? value : fallback;
+}
 
 /**
  * Stagger index per character. Punctuation shares the index of the letter
@@ -69,6 +71,12 @@ export function Intro() {
       .find((e) => e.name === "first-contentful-paint");
     const elapsed = performance.now() - (fcp?.startTime ?? 0);
 
+    const tokens = getComputedStyle(root);
+    const wordMs = readMs(tokens, "--word-ms", 2000);
+    const pauseMs = readMs(tokens, "--pause-ms", 650);
+    const liftMs = readMs(tokens, "--lift-ms", 1300);
+    const totalMs = introWords.length * wordMs + pauseMs + liftMs;
+
     const timers: number[] = [];
     let finished = false;
     let skipped = false;
@@ -79,7 +87,7 @@ export function Intro() {
       skipped = true;
       root.dataset["introSkipped"] = "1";
       timers.forEach(window.clearTimeout);
-      timers.push(window.setTimeout(finish, INTRO_LIFT_MS - 650));
+      timers.push(window.setTimeout(finish, liftMs));
     };
     const unlisten = () => {
       window.removeEventListener("pointerdown", skip);
@@ -97,7 +105,7 @@ export function Intro() {
       root.dataset["introDone"] = "1";
       setDone(true);
     };
-    timers.push(window.setTimeout(finish, Math.max(0, TOTAL_MS - elapsed)));
+    timers.push(window.setTimeout(finish, Math.max(0, totalMs - elapsed)));
 
     // Grace period: without it, the tap that opened the page (or any stray
     // touch during load) dismisses the sequence before it is ever seen.
