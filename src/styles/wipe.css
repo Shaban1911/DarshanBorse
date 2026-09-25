@@ -1,0 +1,72 @@
+/* Page transitions: cover, reveal, and the post-navigation timing reset. */
+
+/* ═══════════ page wipe: a sheet rises, the page changes beneath, the paper parts as curtains ═══════════
+   PageWipe.tsx owns the timing and sets --wipe-cover / --wipe-reveal on the overlay;
+   the paper lags the sand by a beat and both finish inside the cover window. */
+.wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  pointer-events: none;
+}
+.wipe > div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  transform: translateY(102%);
+}
+.wipe-back {
+  left: 0;
+  right: 0;
+  background: #ded2bf;
+  background: color-mix(in oklab, var(--gold) 34%, var(--background));
+}
+.wipe-left,
+.wipe-right {
+  width: 50.5%;
+  background: var(--background);
+}
+.wipe-left {
+  left: 0;
+}
+.wipe-right {
+  right: 0;
+}
+/* cover: sand first, paper a beat behind, both rising — a sheet laid over the page */
+.wipe.is-cover {
+  pointer-events: auto;
+}
+.wipe.is-cover .wipe-back {
+  transform: none;
+  transition: transform calc(var(--wipe-cover, 480ms) - 40ms) var(--ease-curtain);
+}
+.wipe.is-cover .wipe-left,
+.wipe.is-cover .wipe-right {
+  transform: none;
+  transition: transform calc(var(--wipe-cover, 480ms) - 40ms) var(--ease-curtain) 40ms;
+}
+/* reveal: the paper parts as two curtains (the intro's move) and the sand fades behind it */
+.wipe.is-reveal {
+  pointer-events: auto;
+}
+/* the sand is gone before the curtains open a gap (the curve starts slow) */
+.wipe.is-reveal .wipe-back {
+  transform: none;
+  opacity: 0;
+  transition: opacity 0.26s ease;
+}
+.wipe.is-reveal .wipe-left {
+  transform: translateX(-102%);
+  transition: transform calc(var(--wipe-reveal, 760ms) - 40ms) var(--ease-curtain);
+  box-shadow: 18px 0 40px -14px rgb(27 21 13 / 12%);
+}
+.wipe.is-reveal .wipe-right {
+  transform: translateX(102%);
+  transition: transform calc(var(--wipe-reveal, 760ms) - 40ms) var(--ease-curtain);
+  box-shadow: -18px 0 40px -14px rgb(27 21 13 / 12%);
+}
+/* after a navigation there is no intro to wait for: every entrance starts at once */
+:root[data-nav] {
+  --intro-total: 0ms;
+  --intro-offset: 0ms;
+}

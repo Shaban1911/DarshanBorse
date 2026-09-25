@@ -1,0 +1,61 @@
+/* 404 and error pages. */
+
+/* ═══════════ 404: it isn't in the plan ═══════════ */
+.lost {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  align-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: calc(6rem + env(safe-area-inset-top)) var(--gutter)
+    calc(5rem + env(safe-area-inset-bottom));
+}
+.lost .hero-line path:first-child {
+  animation-delay: 0.2s;
+}
+.lost-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 34rem;
+}
+.lost-you {
+  margin: 0 0 0.8rem;
+  font: italic 400 var(--step-2)/1.3 var(--font-serif);
+  color: var(--mineral);
+  animation: hero-rise 1.1s var(--ease-roll) 0.1s backwards;
+}
+.lost h1 {
+  margin: 0;
+  font: 500 var(--step-5)/1.02 var(--font-display);
+  letter-spacing: -0.02em;
+  animation: hero-rise 1.1s var(--ease-roll) 0.35s backwards;
+}
+.lost-him {
+  max-width: 34ch;
+  margin: 1.4rem 0 0;
+  color: var(--muted-foreground);
+  font-size: var(--step-1);
+  line-height: 1.55;
+  animation: hero-rise 1.1s var(--ease-roll) 0.6s backwards;
+}
+.lost-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
+  margin-top: 2rem;
+}
+.lost-actions .lost-back {
+  margin-top: 0;
+}
+.lost-back {
+  display: inline-block;
+  margin-top: 2rem;
+  font: 500 var(--step-0)/1 var(--font-display);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-color: var(--gold);
+  animation: hero-rise 1.1s var(--ease-roll) 0.85s backwards;
+}

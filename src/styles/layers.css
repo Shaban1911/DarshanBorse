@@ -1,0 +1,40 @@
+/* Stacking: the hero is pinned beneath the page; `.paper` carries the hairline grid. */
+
+/* ═══════════ the page slides over the pinned hero ═══════════
+   The hero stays put while every later section covers it like a sheet of
+   paper — the intro's curtain, in scroll form. Sections after it sit above
+   it; the paper ones carry the grid themselves because they are opaque. */
+main {
+  position: relative;
+  z-index: 1;
+}
+.home-hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+}
+.home-hero ~ * {
+  position: relative;
+  z-index: 1;
+}
+.site-footer {
+  position: relative;
+  z-index: 2;
+}
+.paper {
+  background-color: var(--background);
+  --cell: calc((100vw - 2 * var(--gutter)) / 4);
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgb(27 21 13 / 5%) 0 1px,
+    transparent 1px var(--cell)
+  );
+  background-image: repeating-linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--foreground) 5%, transparent) 0 1px,
+    transparent 1px var(--cell)
+  );
+  background-position: var(--gutter) 0;
+  background-size: calc(100% - 2 * var(--gutter) + 1px) 100%;
+  background-repeat: no-repeat;
+}

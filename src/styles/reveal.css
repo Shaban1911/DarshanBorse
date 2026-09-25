@@ -1,0 +1,158 @@
+/* Scroll reveals, per-word masks, hover language, the paper grid. */
+
+/* ---------- scroll-reveal: the intro's motion, on scroll ---------- */
+/* progressive: content is visible by default; only a hydrated page hides it to reveal on scroll */
+:root[data-hydrated] .reveal-block {
+  opacity: 0;
+  transform: translateY(1.2rem);
+}
+.reveal-block {
+  transition:
+    opacity 1s var(--ease-roll),
+    transform 1.1s var(--ease-roll);
+}
+.roll-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.04em;
+}
+.roll-word > span {
+  display: inline-block;
+  transition: transform 1.1s var(--ease-in-place);
+  transition-delay: calc(var(--w) * 55ms);
+}
+:root[data-hydrated] .roll-word > span {
+  transform: translateY(115%);
+}
+:root[data-hydrated] .reveal-block.is-visible .roll-word > span {
+  transform: none;
+}
+/* paper grid: four hairline columns, felt more than seen.
+   html carries the page colour; body must be transparent or its own
+   background paints over the z-index:-1 grid layer. */
+body {
+  background: transparent;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  --cell: calc((100vw - 2 * var(--gutter)) / 4);
+  background: repeating-linear-gradient(
+    90deg,
+    rgb(27 21 13 / 5%) 0 1px,
+    transparent 1px var(--cell)
+  );
+  background: repeating-linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--foreground) 5%, transparent) 0 1px,
+    transparent 1px var(--cell)
+  );
+  background-position: var(--gutter) 0;
+  background-size: calc(100% - 2 * var(--gutter) + 1px) 100%;
+  background-repeat: no-repeat;
+}
+/* hover language — pointer devices only */
+@media (hover: hover) and (pointer: fine) {
+}
+:root[data-hydrated] .reveal-block.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* the last line must clear the WhatsApp pill that sits over the bottom-right corner */
+.site-footer {
+  padding: 4rem var(--gutter) calc(4.75rem + env(safe-area-inset-bottom));
+  background: var(--ink);
+  color: var(--ink-foreground);
+}
+.footer-grid {
+  display: grid;
+  gap: 2.5rem;
+  padding: 2.5rem 0;
+  border-top: 1px solid rgb(241 238 232 / 18%);
+  border-top: 1px solid color-mix(in oklab, var(--ink-foreground) 18%, transparent);
+}
+.footer-grid > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+.footer-grid strong {
+  font: italic 400 var(--step-2)/1.2 var(--font-serif);
+}
+.footer-grid p {
+  max-width: 22rem;
+  margin: 0;
+  color: rgb(241 238 232 / 72%);
+  color: color-mix(in oklab, var(--ink-foreground) 72%, transparent);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+.footer-grid a {
+  color: rgb(241 238 232 / 82%);
+  color: color-mix(in oklab, var(--ink-foreground) 82%, transparent);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.footer-grid a:hover {
+  color: var(--gold);
+}
+.footer-grid button {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: rgb(241 238 232 / 62%);
+  color: color-mix(in oklab, var(--ink-foreground) 62%, transparent);
+  font: inherit;
+  font-size: 0.8125rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.footer-grid button[data-copied] {
+  color: var(--gold);
+  text-decoration: none;
+}
+.legal-block {
+  display: grid;
+  gap: 0.75rem;
+  padding: 2rem 0;
+  border-top: 1px solid rgb(241 238 232 / 18%);
+  border-top: 1px solid color-mix(in oklab, var(--ink-foreground) 18%, transparent);
+}
+.legal-block p {
+  max-width: 46rem;
+  margin: 0;
+  color: rgb(241 238 232 / 80%);
+  color: color-mix(in oklab, var(--ink-foreground) 80%, transparent);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+.legal-identity {
+  color: var(--ink-foreground) !important;
+}
+.legal-line .credit {
+  color: rgb(241 238 232 / 82%);
+  color: color-mix(in oklab, var(--ink-foreground) 82%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--gold);
+}
+.legal-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(241 238 232 / 18%);
+  border-top: 1px solid color-mix(in oklab, var(--ink-foreground) 18%, transparent);
+  color: rgb(241 238 232 / 62%);
+  color: color-mix(in oklab, var(--ink-foreground) 62%, transparent);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}

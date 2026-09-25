@@ -1,0 +1,252 @@
+/* The opening sequence: timing tokens, curtains, character roll, progress, skip hint. */
+
+/* ═══════════ opening sequence ═══════════
+   Entirely CSS, anchored to first paint — see Intro.tsx for the rationale.
+   Tokens must match INTRO_WORD_MS / INTRO_LIFT_MS there.
+   --intro-words is set inline on <html> from the same word list.
+
+   "Cinematic" profile, paced to the reference: ~2s per word, a beat of
+   silence, then theatre curtains part left/right (an axis change against
+   the vertical letters) while the hero rolls in with the same mechanic.
+
+   Arithmetic (longest word = 9 letters -> 8 stagger steps of 34ms = 272ms):
+     enter 0-20% of 1700 = 340ms   hold 20-74% = 918ms   exit 26% = 442ms
+     fully formed from 340+272 = 612ms to 1258ms  (~650ms of a complete word)
+     last letter gone at 272+1700 = 1972ms  ->  word slot 2000ms            */
+:root {
+  --ease-in-place: cubic-bezier(0.16, 1, 0.3, 1); /* decelerate into place */
+  --ease-away: cubic-bezier(0.7, 0, 0.84, 0); /* accelerate away */
+  --ease-roll: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-curtain: cubic-bezier(0.77, 0, 0.18, 1);
+  --char-ms: 1700ms;
+  --stagger: 34ms;
+  --word-ms: 2000ms;
+  --pause-ms: 650ms;
+  --lift-ms: 1300ms;
+  --intro-total: calc(var(--intro-words, 3) * var(--word-ms) + var(--pause-ms));
+  /* the hero begins as the curtains part, not after they are gone */
+  --intro-offset: calc(var(--intro-total) + 200ms);
+}
+:root[data-intro-seen] {
+  --intro-offset: 0ms;
+}
+
+/* intercepts taps while on screen (a skip-tap must never land on the page
+   beneath), then releases itself on a CSS timer so a late hydration can
+   never leave the page un-tappable */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  animation: intro-release 0s step-end calc(var(--intro-total) + var(--lift-ms)) forwards;
+}
+@keyframes intro-release {
+  to {
+    pointer-events: none;
+  }
+}
+/* theatre curtains: two panels parting from the centre line */
+.intro::before,
+.intro::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.5%;
+  background: var(--background);
+  animation: var(--lift-ms) var(--ease-curtain) var(--intro-total) both;
+}
+.intro::before {
+  left: 0;
+  animation-name: curtain-left;
+}
+.intro::after {
+  right: 0;
+  animation-name: curtain-right;
+}
+/* the edge shadow exists only while the curtain moves — at rest the two
+   panels meet invisibly */
+@keyframes curtain-left {
+  from {
+    box-shadow: 18px 0 40px -14px transparent;
+  }
+  30%,
+  100% {
+    box-shadow: 18px 0 40px -14px rgb(27 21 13 / 12%);
+  }
+  to {
+    transform: translateX(-102%);
+  }
+}
+@keyframes curtain-right {
+  from {
+    box-shadow: -18px 0 40px -14px transparent;
+  }
+  30%,
+  100% {
+    box-shadow: -18px 0 40px -14px rgb(27 21 13 / 12%);
+  }
+  to {
+    transform: translateX(102%);
+  }
+}
+:root[data-intro-seen] .intro,
+:root[data-intro-done] .intro {
+  display: none;
+}
+
+/* scroll is locked only while the sequence is on screen; the CSS-timed unlock
+   is the fallback for when hydration (which also unlocks) arrives late */
+:root:not([data-intro-seen]):not([data-intro-done]) body {
+  overflow: hidden;
+  animation: intro-unlock 0s step-end calc(var(--intro-total) + var(--lift-ms)) forwards;
+}
+@keyframes intro-unlock {
+  to {
+    overflow: visible;
+  }
+}
+
+.intro-stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  padding: 0 var(--gutter);
+}
+.intro-row {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  font-size: clamp(2.6rem, 13vw, 8.5rem);
+}
+.intro-index {
+  margin-top: 0.42em;
+  color: var(--gold);
+  font: 500 clamp(0.7rem, 1.1vw, 1rem)/1 var(--font-display);
+  letter-spacing: 0.1em;
+  animation: index-window var(--word-ms) linear calc(var(--k) * var(--word-ms)) both;
+}
+@keyframes index-window {
+  0% {
+    opacity: 0;
+  }
+  9% {
+    opacity: 1;
+  }
+  86% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.intro-word {
+  display: flex;
+  font-size: inherit;
+}
+.intro-char {
+  display: block;
+  overflow: hidden;
+  line-height: 0.94;
+}
+.intro-char > span {
+  display: block;
+  white-space: pre;
+  font: 600 1em/0.94 var(--font-display);
+  letter-spacing: -0.02em;
+  animation: char-roll var(--char-ms) both;
+  animation-delay: calc(var(--k) * var(--word-ms) + var(--i) * var(--stagger));
+}
+/* travel is deeper than the box so ascenders/descenders fully clear the mask;
+   visibility is cut at the end so fill-mode cannot leave a sliver behind.
+   Per-keyframe easing: letters decelerate into place and accelerate away. */
+@keyframes char-roll {
+  0% {
+    transform: translateY(140%);
+    visibility: hidden;
+    animation-timing-function: var(--ease-in-place);
+  }
+  0.1% {
+    visibility: visible;
+  }
+  20% {
+    transform: translateY(0);
+    animation-timing-function: linear;
+  }
+  74% {
+    transform: translateY(0);
+    animation-timing-function: var(--ease-away);
+  }
+  99.9% {
+    visibility: visible;
+  }
+  100% {
+    transform: translateY(-140%);
+    visibility: hidden;
+  }
+}
+
+/* a sense of duration, and the way out — the honest price of a long opening */
+.intro-progress {
+  position: absolute;
+  z-index: 1;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: calc(2.4rem + env(safe-area-inset-bottom));
+  height: 1px;
+  background: rgb(176 147 103 / 28%);
+  background: color-mix(in oklab, var(--gold) 28%, transparent);
+}
+.intro-progress::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform-origin: left;
+  animation: intro-progress var(--intro-total) linear both;
+}
+@keyframes intro-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.intro-hint {
+  position: absolute;
+  z-index: 1;
+  right: var(--gutter);
+  bottom: calc(3.2rem + env(safe-area-inset-bottom));
+  margin: 0;
+  color: var(--muted-foreground);
+  font: 500 0.68rem/1 var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  animation: hint-in 1.2s var(--ease-roll) 1.1s both;
+}
+@keyframes hint-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+  to {
+    opacity: 0.8;
+    transform: none;
+  }
+}
+.intro-hint .hint-pointer {
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .intro-hint .hint-touch {
+    display: none;
+  }
+  .intro-hint .hint-pointer {
+    display: inline;
+  }
+}

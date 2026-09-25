@@ -1,0 +1,63 @@
+/* Section four: ink, the two voices. */
+
+/* ═══════════ how it starts: the two voices talk ═══════════
+   Ink floods up over the finished page while it is still pinned. Inside,
+   the exchange unfolds line by line: the visitor in the serif italic, larger,
+   on the left; Darshan in the grotesk on the right. */
+.reveal {
+  position: relative;
+  z-index: 1;
+  margin-top: -32vh;
+  margin-top: -32svh;
+}
+@supports not (animation-timeline: view()) {
+  .reveal {
+    margin-top: 0;
+  }
+}
+/* at least a viewport tall, so it fully covers the ending while the two travel together */
+.reveal > .how {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.how {
+  --sheet: var(--ink);
+  padding: 6.5rem var(--gutter) 7.5rem;
+  background: var(--ink);
+  color: var(--ink-foreground);
+}
+.how h2 {
+  margin: 0;
+  max-width: 12ch;
+  font: 500 var(--step-4)/1.04 var(--font-display);
+  letter-spacing: -0.01em;
+}
+.dialogue {
+  display: grid;
+  gap: 1.7rem;
+  margin: 3rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.dialogue li {
+  max-width: 30ch;
+}
+/* the visitor, in their own voice, a size larger: it is their conversation */
+.dialogue li.you {
+  justify-self: start;
+  font: italic 400 var(--step-2)/1.35 var(--font-serif);
+  color: rgb(241 238 232 / 92%);
+  color: color-mix(in oklab, var(--ink-foreground) 92%, transparent);
+}
+.dialogue li.him {
+  justify-self: end;
+  margin-left: 12%;
+  font: 400 var(--step-0)/1.6 var(--font-display);
+  color: rgb(241 238 232 / 76%);
+  color: color-mix(in oklab, var(--ink-foreground) 76%, transparent);
+}
+.dialogue p {
+  margin: 0;
+}

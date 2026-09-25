@@ -1,0 +1,144 @@
+/* The fixed letterhead: identity, nav, WhatsApp pill; compact, tucked, inverted states. */
+
+/* ═══════════ the letterhead ═══════════
+   No header bar. Four fixed corners on the paper — identity, two words, the
+   one action. Never scrolls, never competes. Inverts over data-dark sections. */
+.frame {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  color: var(--foreground);
+  transition: color 0.45s;
+}
+/* fill BACKWARDS, never forwards: a forwards fill would pin opacity at 1 for good (Safari resolves the
+   implicit end keyframe once), and the tuck/ending rules could never hide these again */
+.frame > * {
+  pointer-events: auto;
+  position: absolute;
+  animation: hero-rise 1.1s var(--ease-roll) calc(var(--intro-offset) + 1.1s) backwards;
+}
+.frame-id {
+  top: calc(1rem + env(safe-area-inset-top));
+  left: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  line-height: 1.15;
+}
+.frame-id em {
+  font: italic 400 0.8rem/1 var(--font-serif);
+  color: color-mix(in oklab, currentColor 62%, transparent);
+}
+.frame-id strong {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font: 600 0.92rem/1.2 var(--font-display);
+  letter-spacing: -0.005em;
+}
+.frame-id strong span {
+  font-weight: 400;
+  color: color-mix(in oklab, currentColor 60%, transparent);
+}
+.frame-dot {
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: #43b966;
+}
+.frame-id small {
+  font: 400 0.72rem/1.3 var(--font-display);
+  color: color-mix(in oklab, currentColor 62%, transparent);
+}
+/* each word is a full-height touch target (24px+) with clear space between */
+.frame-nav {
+  top: calc(0.75rem + env(safe-area-inset-top));
+  right: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font: 500 0.66rem/1 var(--font-display);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.frame-nav a {
+  display: block;
+  padding: 0.45rem 0 0.45rem 0.75rem;
+}
+.frame-nav a {
+  color: color-mix(in oklab, currentColor 62%, transparent);
+  transition: color 0.3s;
+}
+.frame-nav a:hover,
+.frame-nav a.is-active {
+  color: currentColor;
+}
+.frame-cta {
+  right: var(--gutter);
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.9rem;
+  padding: 0 1.1rem 0 0.95rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--ink-foreground);
+  font: 500 0.82rem/1 var(--font-display);
+  box-shadow:
+    0 0 0 1px rgb(246 243 237 / 45%),
+    0 10px 30px -12px rgb(27 21 13 / 40%);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--background) 45%, transparent),
+    0 10px 30px -12px rgb(27 21 13 / 40%);
+  transition:
+    transform 0.35s var(--ease-roll),
+    background-color 0.45s,
+    color 0.45s;
+}
+.frame-cta svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+.frame-cta:hover {
+  transform: translateY(-2px);
+}
+/* past the hero the letterhead settles to a single line, so it sits lightly on whatever scrolls beneath */
+.frame-id em,
+.frame-id small {
+  transition:
+    opacity 0.4s var(--ease-roll),
+    transform 0.4s var(--ease-roll);
+}
+.frame.is-compact .frame-id em,
+.frame.is-compact .frame-id small {
+  opacity: 0;
+  transform: translateY(-0.25rem);
+  pointer-events: none;
+}
+.frame.is-compact .frame-id em {
+  transform: translateY(0.25rem);
+}
+.frame-id,
+.frame-nav {
+  transition:
+    opacity 0.35s var(--ease-roll),
+    transform 0.45s var(--ease-roll);
+}
+.frame.is-tucked .frame-id,
+.frame.is-tucked .frame-nav {
+  opacity: 0;
+  transform: translateY(-0.6rem);
+  pointer-events: none;
+  visibility: hidden;
+  transition-property: opacity, transform, visibility;
+  transition-delay: 0s, 0s, 0.35s;
+}
+.frame.on-dark {
+  color: var(--ink-foreground);
+}
+.frame.cta-dark .frame-cta {
+  background: var(--ink-foreground);
+  color: var(--ink);
+}

@@ -1,0 +1,44 @@
+/* Pointer-only custom cursor. */
+
+@media (hover: hover) and (pointer: fine) {
+  html.has-cursor,
+  html.has-cursor a,
+  html.has-cursor button {
+    cursor: none;
+  }
+  .cursor {
+    display: block;
+    mix-blend-mode: difference;
+  }
+  /* white under difference: dark on paper, light on ink — the footer included */
+  .cursor-dot {
+    position: absolute;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: #fff;
+    translate: -50% -50%;
+  }
+  .cursor-ring {
+    position: absolute;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    border: 1px solid rgb(255 255 255 / 75%);
+    translate: -50% -50%;
+    transition:
+      width 0.35s var(--ease-roll),
+      height 0.35s var(--ease-roll),
+      background-color 0.35s,
+      border-color 0.35s;
+  }
+  .cursor.is-link .cursor-ring {
+    width: 3.6rem;
+    height: 3.6rem;
+    background: rgb(255 255 255 / 28%);
+    border-color: transparent;
+  }
+  .cursor.is-link .cursor-dot {
+    background: #fff;
+  }
+}

@@ -1,0 +1,77 @@
+/* prefers-reduced-motion: static equivalents of every animation. */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  :root:not([data-intro-force]) *,
+  :root:not([data-intro-force]) *::before,
+  :root:not([data-intro-force]) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  :root:not([data-intro-force]) .reveal-block {
+    opacity: 1;
+    transform: none;
+  }
+  :root:not([data-intro-force]) .intro {
+    display: none;
+  }
+  :root:not([data-intro-force]) .roll-word > span {
+    transform: none;
+  }
+  :root:not([data-intro-force]) .hero-char > span,
+  :root:not([data-intro-force]) .hero-word > span {
+    animation: none;
+    transform: none;
+  }
+  :root:not([data-intro-force]) .about-disc,
+  :root:not([data-intro-force]) .about-portrait,
+  :root:not([data-intro-force]) .about-lead,
+  :root:not([data-intro-force]) .about-open .ask-you,
+  :root:not([data-intro-force]) .hero-copy,
+  :root:not([data-intro-force]) .hero-sentence,
+  :root:not([data-intro-force]) .hero-disc,
+  :root:not([data-intro-force]) .hero-portrait,
+  :root:not([data-intro-force]) .hero-line,
+  :root:not([data-intro-force]) .scroll-cue,
+  :root:not([data-intro-force]) .home-hero,
+  :root:not([data-intro-force]) .frame > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    translate: none;
+  }
+  :root:not([data-intro-force]) .hero-line path,
+  :root:not([data-intro-force]) .thread path {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    animation: none;
+  }
+  :root:not([data-intro-force]) .scroll-cue::after {
+    animation: none;
+    transform: none;
+  }
+  :root:not([data-intro-force]) .gather-space,
+  :root:not([data-intro-force]) .slip {
+    display: none;
+  }
+  :root:not([data-intro-force]) .stage {
+    position: relative;
+  }
+  :root:not([data-intro-force]) .reveal {
+    margin-top: 0;
+  }
+  :root:not([data-intro-force]) .gather-heading,
+  :root:not([data-intro-force]) .plan-sheet,
+  :root:not([data-intro-force]) .plan-line,
+  :root:not([data-intro-force]) .plan-sign {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  :root:not([data-intro-force]) .plan-line b::after {
+    transform: none;
+  }
+}

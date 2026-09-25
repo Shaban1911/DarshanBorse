@@ -1,0 +1,305 @@
+/* Wider screens: gutters and every desktop composition, in section order. */
+
+@media (min-width: 480px) {
+  :root {
+    --gutter: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 6vw;
+  }
+
+  /* hero, wider: copy left in its own container so the widest goal word
+     sizes to the space beside the disc; the person on the right, taller */
+  .home-hero {
+    --disc: min(46vw, 78svh);
+    padding-top: calc(6.5rem + env(safe-area-inset-top));
+  }
+  .hero-copy {
+    container-type: inline-size;
+    width: calc(100% - var(--disc) * 0.82);
+    align-self: center;
+    padding: 6vh 0 0;
+    padding: 6svh 0 0;
+  }
+  .hero-goal {
+    font-size: clamp(4rem, 8vw, 7.5rem);
+    font-size: min(7.5rem, 15cqw);
+  }
+  .hero-lead {
+    font-size: min(3.8rem, 4vw);
+    font-size: min(3.8rem, 7cqw);
+  }
+  .hero-sentence {
+    max-width: 34ch;
+    font-size: var(--step-1);
+  }
+  .hero-disc {
+    right: calc(var(--gutter) - var(--disc) * 0.12);
+    bottom: calc(var(--disc) * -0.12);
+  }
+  .hero-portrait {
+    right: calc(var(--gutter) + var(--disc) * 0.04);
+    bottom: 0;
+    width: min(calc(var(--disc) * 0.74), calc(74vh * 0.63));
+    width: min(calc(var(--disc) * 0.74), calc(74svh * 0.63));
+  }
+  .scroll-cue {
+    bottom: 2.2rem;
+  }
+  .frame-id em {
+    font-size: 0.9rem;
+  }
+  .frame-id strong {
+    font-size: 1.02rem;
+  }
+  .frame-nav {
+    font-size: 0.7rem;
+  }
+  .frame-cta {
+    height: 3.1rem;
+    font-size: 0.86rem;
+  }
+  .recognise {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 6vw;
+    align-items: start;
+    padding-bottom: 9rem;
+  }
+  .notes li {
+    width: 74%;
+    max-width: 26rem;
+  }
+  .recognise-turn {
+    position: sticky;
+    top: 30vh;
+    margin-top: 6.5rem;
+  }
+  .recognise-turn h2 {
+    max-width: 12ch;
+  }
+  .stage {
+    grid-template-columns: 0.9fr 1.1fr;
+    grid-template-rows: none;
+    align-items: center;
+    column-gap: 6vw;
+    padding: 7rem var(--gutter);
+  }
+  .gather-heading {
+    max-width: 11ch;
+  }
+  .desk {
+    align-self: center;
+    height: min(68vh, 42rem);
+    height: min(68svh, 42rem);
+    margin-top: 0;
+  }
+  .slip {
+    padding: 0.8rem 1.2rem 0.9rem;
+    font-size: var(--step-1);
+    transform: translate(calc(-50% + var(--x) * 0.6), calc(-50% + var(--y) * 0.85)) rotate(var(--r))
+      scale(var(--s));
+  }
+  .plan-sheet {
+    max-width: 33rem;
+    padding: 2.2rem 2.2rem 1.9rem;
+  }
+  .plan-line {
+    font-size: var(--step-0);
+    line-height: 1.55;
+  }
+  .plan-text {
+    gap: 0.9rem;
+  }
+  .desk {
+    height: min(72vh, 44rem);
+    height: min(72svh, 44rem);
+  }
+  .how {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    column-gap: 6vw;
+    align-items: start;
+    padding: 10rem var(--gutter) 12rem;
+  }
+  .how > .reveal-block {
+    position: sticky;
+    top: 30vh;
+  }
+  .dialogue {
+    max-width: 36rem;
+    margin-top: 0;
+    gap: 2.2rem;
+  }
+  .about-open {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    padding: 7rem var(--gutter) 0;
+  }
+  .about-open-copy {
+    padding-bottom: 8vh;
+  }
+  .about-open h1 {
+    max-width: 14ch;
+  }
+  .about-disc {
+    --disc: min(44vw, 74svh);
+    right: calc(var(--gutter) - var(--disc) * 0.12);
+    bottom: calc(var(--disc) * -0.12);
+  }
+  .about-portrait {
+    right: calc(var(--gutter) + 2vw);
+    width: min(30vw, 24rem);
+  }
+  .about-letter {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    column-gap: 6vw;
+    align-items: start;
+    padding: 8rem var(--gutter) 9rem;
+  }
+  .about-letter-lead {
+    position: sticky;
+    top: 30vh;
+  }
+  .letter {
+    max-width: 33rem;
+    margin: 0 0 0 auto;
+    padding: 2.2rem 2.2rem 2rem;
+  }
+  .letter-text p {
+    font-size: var(--step-0);
+  }
+  .about-record {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    column-gap: 6vw;
+    align-items: start;
+    padding: 9rem var(--gutter) 10rem;
+  }
+  .about-record > .reveal-block {
+    position: sticky;
+    top: 30vh;
+  }
+  .record {
+    margin-top: 0;
+  }
+  .record-row {
+    grid-template-columns: 10rem 1fr;
+  }
+  .about-office img {
+    height: 80vh;
+    height: 80svh;
+    max-height: none;
+  }
+  .about-office-caption {
+    bottom: 2rem;
+  }
+  .about-hello {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 8rem var(--gutter) 9rem;
+  }
+  .about-hello .hello-send {
+    width: auto;
+  }
+  /* desktop: the office takes the right two-thirds; the words sit on paper that dissolves into the room */
+  .reveal > .hello {
+    grid-template-rows: 1fr;
+    padding: 8rem var(--gutter) 3rem;
+  }
+  .scene {
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 0 30%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  .scene-disc {
+    display: none;
+  }
+  .scene-desk {
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+  .scene::after {
+    display: block;
+  }
+  .scene img {
+    object-position: 70% 55%;
+    filter: saturate(0.72);
+  }
+  .scene::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, var(--background) 0%, rgb(246 243 237 / 70%) 24%, transparent 46%),
+      linear-gradient(180deg, rgb(246 243 237 / 45%), transparent 32%);
+  }
+  .hello-copy {
+    justify-content: center;
+    max-width: 36rem;
+    padding-top: 0;
+  }
+  .hello-title {
+    font-size: var(--step-5);
+  }
+  .hello-message {
+    max-width: 34ch;
+    margin-top: 2rem;
+    font-size: var(--step-2);
+  }
+  .hello-actions {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem 1.75rem;
+    margin-top: 2rem;
+  }
+  .hello-send {
+    width: auto;
+    min-height: 3rem;
+  }
+  .hello-note {
+    margin: 0;
+    text-align: left;
+    align-self: center;
+  }
+  .hello-caption {
+    margin-top: 3rem;
+    text-align: left;
+  }
+  .dialogue li {
+    max-width: 32ch;
+  }
+  .site-footer {
+    padding: 7rem var(--gutter) 2rem;
+  }
+  .legal-line {
+    padding-right: 10rem;
+  }
+  .footer-grid {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+  .legal-line {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* Stop the layout stretching indefinitely: content caps at ~1400px, centred. */
+@media (min-width: 1200px) {
+  :root {
+    --gutter: max(6vw, (100vw - 1400px) / 2);
+  }
+}
+
+/* Very small phones (360px and below) — keep the hero from crowding the portrait. */
+@media (max-width: 380px) {
+}

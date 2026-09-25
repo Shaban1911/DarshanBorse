@@ -1,0 +1,314 @@
+/* Section three: the pinned stage, scattered slips, the written page on its pile. */
+
+/* ═══════════ the plan: a pinned stage where the slips gather ═══════════
+   The stage pins for 200svh (the spacer) while the timeline runs: slips
+   gathering, sheet growing out of the stack, contents rising — all done by
+   80% so the ink sheet can slide over the finished page for the last stretch.
+   The heading is already there when the stage arrives. Without scroll-driven animation support the
+   spacer and slips go, and the finished sheet simply sits on the page. */
+.gather {
+  position: relative;
+  view-timeline: --gather block;
+}
+.gather.paper {
+  background-image:
+    radial-gradient(65% 50% at 80% 55%, rgb(176 147 103 / 20%), transparent 70%),
+    repeating-linear-gradient(90deg, rgb(27 21 13 / 5%) 0 1px, transparent 1px var(--cell));
+  background-image:
+    radial-gradient(
+      65% 50% at 80% 55%,
+      color-mix(in oklab, var(--gold) 20%, transparent),
+      transparent 70%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--foreground) 5%, transparent) 0 1px,
+      transparent 1px var(--cell)
+    );
+  background-position:
+    0 0,
+    var(--gutter) 0;
+  background-size:
+    100% 100%,
+    calc(100% - 2 * var(--gutter) + 1px) 100%;
+  background-repeat: no-repeat;
+}
+.stage {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-x: clip;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: calc(5.5rem + env(safe-area-inset-top)) var(--gutter)
+    calc(4.5rem + env(safe-area-inset-bottom));
+}
+.gather-space {
+  height: 230vh;
+  height: 230svh;
+}
+.gather-heading {
+  margin: 0;
+  max-width: 13ch;
+  font: 500 var(--step-4)/1.04 var(--font-display);
+  letter-spacing: -0.01em;
+}
+/* the desk fills the rest of the stage; the pile forms at its centre and the page unfolds from there */
+.desk {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  margin-top: clamp(1.25rem, 4vh, 3rem);
+  margin-top: clamp(1.25rem, 4svh, 3rem);
+}
+.slip {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  padding: 0.6rem 0.95rem 0.7rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  background-image: linear-gradient(0deg, rgb(60 102 105 / 16%) 1px, transparent 1px);
+  background-image: linear-gradient(
+    0deg,
+    color-mix(in oklab, var(--mineral) 16%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 100% 1.2em;
+  background-origin: content-box;
+  background-position: 0 0.25em;
+  box-shadow: 0 14px 34px -22px rgb(27 21 13 / 45%);
+  font: italic 400 var(--step-1)/1.2 var(--font-serif);
+  white-space: nowrap;
+  top: 50%;
+  left: 50%;
+  --s: 1;
+  transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r))
+    scale(var(--s));
+  /* the higher a slip sits on the pile, the further its shadow falls */
+  box-shadow:
+    0 1px 0 #fdfcfa,
+    0 calc(10px + (var(--s) - 0.9) * 60px) calc(22px + (var(--s) - 0.9) * 60px) -16px
+      rgb(27 21 13 / 42%);
+}
+/* every third slip is a shade warmer: not all paper is the same paper */
+.slip:nth-child(3n) {
+  background-color: #fbf7ef;
+}
+/* the page: its own white sheet is a layer, so the pile can sit behind it inside the same box */
+.plan-sheet {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 30rem;
+  padding: 1.7rem 1.5rem 1.5rem;
+  transform-origin: 50% 50%;
+}
+.plan-sheet > * {
+  position: relative;
+  z-index: 1;
+}
+.plan-sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 1px 0 #fdfcfa,
+    0 26px 60px -34px rgb(27 21 13 / 50%);
+}
+/* the pile this page came out of: two sheets behind it, slightly turned */
+.plan-sheet > .plan-pile {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.plan-pile::before,
+.plan-pile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 16px 34px -26px rgb(27 21 13 / 40%);
+}
+.plan-pile::before {
+  transform: rotate(-2.4deg) translate(-0.5rem, 0.55rem);
+  opacity: 0.9;
+}
+.plan-pile::after {
+  transform: rotate(1.7deg) translate(0.6rem, 1rem);
+  opacity: 0.75;
+}
+.plan-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin: 0 0 1.5rem;
+  font: italic 400 var(--step-2)/1.1 var(--font-serif);
+  color: var(--mineral);
+}
+.plan-blank {
+  flex: 1;
+  height: 1px;
+  margin-bottom: 0.1em;
+  background: rgb(27 21 13 / 34%);
+  background: color-mix(in oklab, var(--foreground) 34%, transparent);
+}
+.plan-text {
+  display: grid;
+  gap: 0.85rem;
+}
+.plan-line {
+  margin: 0;
+  font: 400 var(--step-0)/1.55 var(--font-display);
+  color: rgb(27 21 13 / 84%);
+  color: color-mix(in oklab, var(--foreground) 84%, transparent);
+}
+/* run-in headings: the six things a plan holds, underlined as if by a pen */
+.plan-line b {
+  position: relative;
+  font-weight: 600;
+  color: var(--foreground);
+}
+.plan-line b::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.08em;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.plan-sign {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  margin: 1.7rem 0 0;
+}
+.plan-sign em {
+  font: italic 400 var(--step-1)/1 var(--font-serif);
+  color: var(--foreground);
+}
+.plan-sign span {
+  font: 400 var(--step--2)/1 var(--font-display);
+  color: var(--muted-foreground);
+}
+
+/* short phones: the whole page must still fit the pinned stage */
+@media (max-height: 700px) {
+  .stage {
+    padding-top: calc(4.5rem + env(safe-area-inset-top));
+    padding-bottom: calc(3rem + env(safe-area-inset-bottom));
+  }
+  .gather-heading {
+    font-size: var(--step-3);
+  }
+  .desk {
+    margin-top: 1rem;
+  }
+  .plan-sheet {
+    padding: 1.25rem 1.2rem 1.15rem;
+  }
+  .plan-title {
+    margin-bottom: 0.9rem;
+    font-size: var(--step-1);
+  }
+  .plan-text {
+    gap: 0.5rem;
+  }
+  .plan-line {
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+  .plan-sign {
+    margin-top: 1rem;
+  }
+  .plan-sign em {
+    font-size: var(--step-0);
+  }
+}
+@supports (animation-timeline: view()) {
+  .gather-heading {
+    animation: rise-in linear both;
+    animation-timeline: --gather;
+    animation-range: entry 55% entry 100%;
+  }
+  .slip {
+    animation:
+      slip-gather cubic-bezier(0.4, 0, 0.2, 1) both,
+      slip-fade linear both;
+    animation-timeline: --gather, --gather;
+    animation-range:
+      contain calc(3% + var(--n) * 2.2%) contain calc(22% + var(--n) * 2.2%),
+      contain 43% contain 49%;
+  }
+  .plan-sheet {
+    animation: sheet-grow cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation-timeline: --gather;
+    animation-range: contain 45% contain 58%;
+  }
+  .plan-line {
+    animation: rise-in linear both;
+    animation-timeline: --gather;
+    animation-range: contain calc(57% + var(--n) * 6%) contain calc(63% + var(--n) * 6%);
+  }
+  .plan-line b::after {
+    animation: pen-line linear both;
+    animation-timeline: --gather;
+    animation-range: contain calc(62% + var(--n) * 6%) contain calc(67% + var(--n) * 6%);
+  }
+  .plan-sign {
+    animation: rise-in linear both;
+    animation-timeline: --gather;
+    animation-range: contain 83% contain 88%;
+  }
+  @keyframes pen-line {
+    to {
+      transform: none;
+    }
+  }
+  @keyframes slip-gather {
+    to {
+      transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+  }
+  @keyframes slip-fade {
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes sheet-grow {
+    from {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+  }
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.6rem);
+    }
+  }
+}
+@supports not (animation-timeline: view()) {
+  .gather-space,
+  .slip {
+    display: none;
+  }
+  .stage {
+    position: relative;
+  }
+}

@@ -1,0 +1,43 @@
+/* Design tokens: type scale, colours, radii. */
+
+:root {
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-display: "Manrope", system-ui, sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
+  --gutter: 1rem;
+  /* fluid type scale: phone -> desktop, one ratio family */
+  --step--2: clamp(0.7rem, 0.68rem + 0.12vw, 0.78rem);
+  --step--1: clamp(0.8125rem, 0.78rem + 0.18vw, 0.9rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  --step-1: clamp(1.0625rem, 1rem + 0.4vw, 1.3125rem);
+  --step-2: clamp(1.3125rem, 1.15rem + 0.8vw, 1.875rem);
+  --step-3: clamp(1.7rem, 1.35rem + 1.7vw, 2.75rem);
+  --step-4: clamp(2.1rem, 1.45rem + 3vw, 4.25rem);
+  --step-5: clamp(2.5rem, 1.6rem + 4.2vw, 5.25rem);
+  --step-6: clamp(2.75rem, 1.5rem + 5.5vw, 6.75rem);
+  /* one palette, in sRGB, so every browser and phone paints the same site */
+  --radius: 4px;
+  --background: #f6f3ed;
+  --foreground: #1b150d;
+  --card: #fcfaf6;
+  --card-foreground: #1b150d;
+  --popover: #fcfaf6;
+  --popover-foreground: #1b150d;
+  --primary: #0e1e1f;
+  --primary-foreground: #f8f5ee;
+  --secondary: #e2ddd3;
+  --secondary-foreground: #1b150d;
+  --muted: #e4e1da;
+  --muted-foreground: #675f55;
+  --accent: #b09367;
+  --accent-foreground: #16100a;
+  --destructive: #d02c2a;
+  --destructive-foreground: #f8f8f8;
+  --border: rgb(27 21 13 / 16%);
+  --input: rgb(27 21 13 / 24%);
+  --ring: #41686b;
+  --ink: #061212;
+  --ink-foreground: #f1eee8;
+  --mineral: #3c6669;
+  --gold: #b09367;
+}
