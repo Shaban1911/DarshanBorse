@@ -46,7 +46,7 @@ export function LastPage() {
 
       <div className="hello-copy">
         <h2 className="hello-title">
-          <span className="hello-lead">A plan for</span>
+          <span className="hello-lead">A plan for</span>{" "}
           <span className="hello-you">
             you
             <span className="name-dot" aria-hidden="true">
