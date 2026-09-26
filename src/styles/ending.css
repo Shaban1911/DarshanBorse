@@ -147,9 +147,10 @@
   min-height: 3.35rem;
   font-size: 1rem;
 }
+/* one line, in his voice, under the thumb's button */
 .hello-note {
   max-width: 30ch;
-  margin: 0.9rem 0 0;
+  margin: 0.7rem 0 0;
   color: rgb(27 21 13 / 72%);
   color: color-mix(in oklab, var(--foreground) 72%, transparent);
   font-size: var(--step--1);

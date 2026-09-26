@@ -15,7 +15,9 @@
   display: inline-block;
   overflow: hidden;
   vertical-align: bottom;
-  padding-bottom: 0.04em;
+  /* room below the baseline for descenders; the negative margin keeps the line spacing */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.12em;
 }
 .roll-word > span {
   display: inline-block;
@@ -23,7 +25,7 @@
   transition-delay: calc(var(--w) * 55ms);
 }
 :root[data-hydrated] .roll-word > span {
-  transform: translateY(115%);
+  transform: translateY(125%);
 }
 :root[data-hydrated] .reveal-block.is-visible .roll-word > span {
   transform: none;

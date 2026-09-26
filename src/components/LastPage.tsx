@@ -80,9 +80,7 @@ export function LastPage() {
           <a className="btn hello-send" href={href} target="_blank" rel="noreferrer">
             <MessageCircle /> Send on WhatsApp
           </a>
-          <p className="hello-note">
-            Reach out any time. I read every message myself and reply as soon as I can.
-          </p>
+          <p className="hello-note">Reach out any time.</p>
         </div>
 
         <p className="hello-caption">

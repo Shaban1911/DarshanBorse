@@ -131,6 +131,7 @@ const scattered = [
   { word: "ULIPs", x: "-24vw", y: "12vh", r: "3deg", s: 0.95 },
   { word: "Term insurance", x: "8vw", y: "17vh", r: "-5deg", s: 1 },
   { word: "Health insurance", x: "-6vw", y: "28vh", r: "4deg", s: 1.05 },
+  { word: "Real estate", x: "27vw", y: "23vh", r: "5deg", s: 0.95 },
 ];
 
 /**

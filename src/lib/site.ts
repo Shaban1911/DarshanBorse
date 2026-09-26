@@ -92,7 +92,7 @@ export const ogImage = `${siteUrl}/og-image.jpg`;
  * speaker. Three is the ceiling: each costs ~1s of a 4G visitor's time.
  */
 /* Three beats that tell the whole story and land on the hero ("A plan for your…"). Plain words. */
-export const introWords = ["your money.", "your goals.", "one plan."] as const;
+export const introWords = ["your money.", "your goals.", "our plan."] as const;
 
 /**
  * Hero: "A plan for" + one of these, rotating. The intro ends on "just a

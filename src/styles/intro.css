@@ -152,6 +152,9 @@
   display: block;
   overflow: hidden;
   line-height: 0.94;
+  /* room below the baseline for y and g; the negative margin keeps the line where it was */
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
 }
 .intro-char > span {
   display: block;
