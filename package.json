@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "node scripts/seo.mjs && vite build",
+    "build": "node scripts/seo.mjs && vite build && node scripts/check-css.mjs",
     "build:dev": "vite build --mode development",
     "brand": "python brand/build.py && node brand/share.mjs",
     "preview": "wrangler pages dev dist/client --port 8788",

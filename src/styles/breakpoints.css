@@ -14,8 +14,13 @@
   /* hero, wider: copy left in its own container so the widest goal word
      sizes to the space beside the disc; the person on the right, taller */
   .home-hero {
-    --disc: min(46vw, 78svh);
+    --disc: min(46vw, 78vh);
     padding-top: calc(6.5rem + env(safe-area-inset-top));
+  }
+  @supports (height: 1svh) {
+    .home-hero {
+      --disc: min(46vw, 78svh);
+    }
   }
   .hero-copy {
     container-type: inline-size;
@@ -146,9 +151,14 @@
     max-width: 14ch;
   }
   .about-disc {
-    --disc: min(44vw, 74svh);
+    --disc: min(44vw, 74vh);
     right: calc(var(--gutter) - var(--disc) * 0.12);
     bottom: calc(var(--disc) * -0.12);
+  }
+  @supports (height: 1svh) {
+    .about-disc {
+      --disc: min(44vw, 74svh);
+    }
   }
   .about-portrait {
     right: calc(var(--gutter) + 2vw);

@@ -38,7 +38,12 @@
 }
 /* ink is not paper: it floods up as a curve, no cut, no shadow */
 .sheet-edge.edge-wave {
-  --wave: max(11svh, 13vw);
+  --wave: max(11vh, 13vw);
+}
+@supports (height: 1svh) {
+  .sheet-edge.edge-wave {
+    --wave: max(11svh, 13vw);
+  }
 }
 .sheet-edge.edge-wave::before {
   top: calc(1px - var(--wave));

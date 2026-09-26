@@ -4,8 +4,22 @@ All notable changes to this site. Dates are release dates.
 
 ## Unreleased
 
+### Fixed
+
+- Phones that never updated (iOS 15 and earlier Safari) lost the hero and the
+  plan stage: the CSS build was stripping the `vh`/`hidden` fallbacks written
+  before `svh`/`clip`, and the disc size lived in a custom property holding
+  `svh`. CSS now goes through PostCSS with explicit browser targets, modern
+  units in custom properties sit behind feature queries, the focus ring and
+  the letterhead's thinned colours have fallbacks, and `npm run build` fails
+  if a fallback goes missing. Two polyfills cover `Object.hasOwn` and
+  `Array.prototype.at`.
+
 ### Added
 
+- The plan stage holds twenty slips: PPF, EPF, NPS, bonds, home and car loans,
+  household expenses, cash in hand, life insurance and real estate join the
+  ten it had, re-scattered for phone and desktop.
 - The identity: a mark made from the site's own growth line and gold full stop
   on the hero's warm disc, a wordmark in the letterhead's faces, and the
   derived favicon, SVG icon, Apple touch icon, web manifest and share image,

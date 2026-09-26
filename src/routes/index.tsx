@@ -121,17 +121,28 @@ const situations = [
  * centre of the desk, in a loose ring, so gathering means converging.
  */
 const scattered = [
-  { word: "SIPs", x: "-30vw", y: "-27vh", r: "-8deg", s: 1.05 },
-  { word: "Mutual funds", x: "12vw", y: "-24vh", r: "4deg", s: 1 },
-  { word: "FDs", x: "30vw", y: "-16vh", r: "-3deg", s: 0.95 },
-  { word: "RDs", x: "-12vw", y: "-14vh", r: "6deg", s: 0.9 },
-  { word: "Stocks", x: "-31vw", y: "-2vh", r: "-4deg", s: 1 },
-  { word: "Gold", x: "8vw", y: "-3vh", r: "7deg", s: 1.1 },
-  { word: "LIC policies", x: "28vw", y: "7vh", r: "-6deg", s: 1 },
-  { word: "ULIPs", x: "-24vw", y: "12vh", r: "3deg", s: 0.95 },
-  { word: "Term insurance", x: "8vw", y: "17vh", r: "-5deg", s: 1 },
-  { word: "Health insurance", x: "-6vw", y: "28vh", r: "4deg", s: 1.05 },
-  { word: "Real estate", x: "27vw", y: "23vh", r: "5deg", s: 0.95 },
+  // nine loose rows down the desk, long words kept off the edges and the
+  // bottom-right corner left to the WhatsApp pill; --n is the gathering order
+  { word: "SIPs", x: "-31vw", y: "-28vh", r: "-8deg", s: 1.05 },
+  { word: "Mutual funds", x: "6vw", y: "-28vh", r: "4deg", s: 1 },
+  { word: "FDs", x: "34vw", y: "-27vh", r: "-3deg", s: 0.95 },
+  { word: "PPF", x: "-14vw", y: "-21vh", r: "6deg", s: 0.9 },
+  { word: "Home loan", x: "22vw", y: "-20vh", r: "-5deg", s: 1 },
+  { word: "Stocks", x: "-32vw", y: "-14vh", r: "-4deg", s: 1 },
+  { word: "Gold", x: "-2vw", y: "-13vh", r: "7deg", s: 1.1 },
+  { word: "NPS", x: "31vw", y: "-13vh", r: "3deg", s: 0.9 },
+  { word: "RDs", x: "-20vw", y: "-7vh", r: "-6deg", s: 0.95 },
+  { word: "Term insurance", x: "14vw", y: "-6vh", r: "-2deg", s: 1 },
+  { word: "EPF", x: "-33vw", y: "0vh", r: "5deg", s: 0.9 },
+  { word: "Bonds", x: "-8vw", y: "1vh", r: "-7deg", s: 1 },
+  { word: "Car loan", x: "26vw", y: "1vh", r: "4deg", s: 0.95 },
+  { word: "LIC policies", x: "-18vw", y: "8vh", r: "3deg", s: 1.05 },
+  { word: "Cash in hand", x: "22vw", y: "8vh", r: "-4deg", s: 1 },
+  { word: "ULIPs", x: "-34vw", y: "15vh", r: "-3deg", s: 0.95 },
+  { word: "Real estate", x: "-2vw", y: "15vh", r: "5deg", s: 0.95 },
+  { word: "Life insurance", x: "30vw", y: "15vh", r: "3deg", s: 1 },
+  { word: "Household expenses", x: "10vw", y: "22vh", r: "-4deg", s: 1 },
+  { word: "Health insurance", x: "-12vw", y: "29vh", r: "-5deg", s: 1.05 },
 ];
 
 /**

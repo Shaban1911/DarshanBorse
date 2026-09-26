@@ -38,7 +38,7 @@
 }
 /* the hero's disc, holding the closest portrait */
 .about-disc {
-  --disc: min(96vw, 60svh);
+  --disc: min(96vw, 60vh);
   position: absolute;
   z-index: 1;
   width: var(--disc);
@@ -49,6 +49,11 @@
   background: #ded2bf;
   background: color-mix(in oklab, var(--gold) 34%, var(--background));
   animation: disc-in 1.6s var(--ease-roll) calc(var(--intro-offset) + 0.3s) backwards;
+}
+@supports (height: 1svh) {
+  .about-disc {
+    --disc: min(96vw, 60svh);
+  }
 }
 .about-portrait {
   position: absolute;

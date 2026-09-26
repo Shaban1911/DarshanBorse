@@ -68,6 +68,28 @@ QA switches: `?intro=0` skips the opening sequence, `?intro=1` forces it.
 - Words are plain English. No idioms, no jargon. English is a second language
   for most readers.
 
+## Browsers
+
+The floor is Safari 14 / iOS 14, Chrome 87, Firefox 78 and Edge 88, set once
+as `TARGETS` in `vite.config.ts`: iPhones that never updated are the reason.
+Three rules keep the site whole there:
+
+- Every modern value follows a value those engines understand, in the same
+  rule: `min-height: 100vh` before `100svh`, `overflow-x: hidden` before
+  `clip`, a hex colour before `color-mix()`.
+- A custom property never carries a modern unit on its own (a variable cannot
+  be fallen back by repetition; every declaration that uses it would fail
+  instead). The base value uses the old unit and the modern one sits in
+  `@supports (height: 1svh) { … }`.
+- Selectors an old engine cannot parse (`:focus-visible`) get their own rule,
+  because an unknown pseudo-class drops the whole selector list.
+
+`npm run build` ends with `scripts/check-css.mjs`, which reads the built
+stylesheet and fails the build if any of that has been lost. CSS goes through
+PostCSS and the esbuild minifier: Lightning CSS was dropping the fallbacks.
+Two one-line polyfills (`Object.hasOwn`, `Array.prototype.at`) sit in the head
+script for Safari before 15.4.
+
 ## Conventions worth keeping
 
 - Colours in sRGB hex. Any `color-mix()` declaration is preceded by a plain

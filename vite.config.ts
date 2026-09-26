@@ -3,6 +3,8 @@ import { defineConfig } from "vite";
 import viteReact from "@vitejs/plugin-react";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 
+const TARGETS = ["es2019", "safari14", "chrome87", "firefox78", "edge88"];
+
 /**
  * Build configuration.
  *
@@ -16,7 +18,13 @@ export default defineConfig({
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
     dedupe: ["react", "react-dom", "react/jsx-runtime"],
   },
-  css: { transformer: "lightningcss" },
+  css: { transformer: "postcss" },
+  // Who the site must work for: phones that never updated. iPhone 13 shipped
+  // with iOS 15, so Safari 15 is the floor, with a margin. Lightning CSS reads
+  // this too: with a modern-only target it strips the vh/hidden fallbacks
+  // written before svh/clip (the whole reason they exist), and it adds the
+  // -webkit- prefixes those engines still need.
+  build: { target: TARGETS, cssTarget: TARGETS, cssMinify: "esbuild" },
   server: { host: "::", port: 8080 },
   plugins: [
     tanstackStart({

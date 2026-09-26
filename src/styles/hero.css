@@ -6,7 +6,7 @@
    feet below the fold. A drawn growth line runs behind everything.
    Desktop keeps the same composition, wider. */
 .home-hero {
-  --disc: min(96vw, 64svh);
+  --disc: min(96vw, 64vh);
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -15,6 +15,13 @@
   min-height: 100vh;
   min-height: 100svh;
   padding: calc(5.6rem + env(safe-area-inset-top)) var(--gutter) 0;
+}
+/* svh only where the engine has it: a custom property holding an unknown unit
+   would invalidate every declaration that uses it (Safari before 15.4) */
+@supports (height: 1svh) {
+  .home-hero {
+    --disc: min(96vw, 64svh);
+  }
 }
 .hero-copy {
   position: relative;

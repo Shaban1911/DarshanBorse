@@ -28,7 +28,6 @@
 }
 .frame-id em {
   font: italic 400 0.8rem/1 var(--font-serif);
-  color: color-mix(in oklab, currentColor 62%, transparent);
 }
 .frame-id strong {
   display: flex;
@@ -39,7 +38,6 @@
 }
 .frame-id strong span {
   font-weight: 400;
-  color: color-mix(in oklab, currentColor 60%, transparent);
 }
 .frame-dot {
   width: 0.38rem;
@@ -49,7 +47,26 @@
 }
 .frame-id small {
   font: 400 0.72rem/1.3 var(--font-display);
-  color: color-mix(in oklab, currentColor 62%, transparent);
+}
+/* the quieter words of the letterhead: the current colour, thinned, so the
+   same rule serves paper and ink. Engines without color-mix thin by opacity. */
+@supports (color: color-mix(in oklab, red, blue)) {
+  .frame-id em,
+  .frame-id small,
+  .frame-nav a {
+    color: color-mix(in oklab, currentColor 62%, transparent);
+  }
+  .frame-id strong span {
+    color: color-mix(in oklab, currentColor 60%, transparent);
+  }
+}
+@supports not (color: color-mix(in oklab, red, blue)) {
+  .frame-id em,
+  .frame-id small,
+  .frame-nav a,
+  .frame-id strong span {
+    opacity: 0.62;
+  }
 }
 /* each word is a full-height touch target (24px+) with clear space between */
 .frame-nav {
@@ -67,7 +84,6 @@
   padding: 0.45rem 0 0.45rem 0.75rem;
 }
 .frame-nav a {
-  color: color-mix(in oklab, currentColor 62%, transparent);
   transition: color 0.3s;
 }
 .frame-nav a:hover,

@@ -49,7 +49,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 export const Route = createRootRouteWithContext<Record<string, never>>()({
   head: ({ matches }) => {
     // The root match is always "/"; the page's own address is the last match.
-    const path = (matches.at(-1)?.pathname ?? "/").replace(/\/+$/, "") || "/";
+    const path = (matches[matches.length - 1]?.pathname ?? "/").replace(/\/+$/, "") || "/";
     const pageUrl = `${siteUrl}${path}`;
     return {
       meta: [
@@ -86,6 +86,10 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
           children:
             // Runs BEFORE first paint: the opening plays on / and /about only;
             // ?intro=0 skips it (QA), ?intro=1 forces it even under reduced motion.
+            // Two one-line polyfills first: Object.hasOwn (the hydration serializer
+            // calls it) and Array.prototype.at, both missing before Safari 15.4.
+            "Object.hasOwn||(Object.hasOwn=function(o,k){return Object.prototype.hasOwnProperty.call(o,k)});" +
+            "Array.prototype.at||Object.defineProperty(Array.prototype,'at',{writable:true,configurable:true,value:function(n){n=Math.trunc(n)||0;if(n<0)n+=this.length;return this[n]}});" +
             "try{var d=document.documentElement.dataset;var p=location.pathname.replace(/\\/+$/,'')||'/';if(/[?&]intro=0(&|$)/.test(location.search)||!/^\\/(about)?$/.test(p)){d.introSeen='1'}else if(/[?&]intro(=|&|$)/.test(location.search)){d.introForce='1'}else if(matchMedia('(prefers-reduced-motion: reduce)').matches){d.introSeen='1'}}catch(e){}",
         },
       ],
