@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Darshan Borse — identity</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  @font-face { font-family: "Manrope"; src: url("../public/fonts/Manrope.woff2") format("woff2"); font-weight: 400 700; }
+  @font-face { font-family: "DM Sans"; src: url("../public/fonts/DMSans.woff2") format("woff2"); font-weight: 400 600; }
+  @font-face { font-family: "Newsreader"; src: url("../public/fonts/Newsreader-italic.woff2") format("woff2"); font-style: italic; }
+  body { margin: 0; background: #f6f3ed; color: #1b150d; font: 15px/1.5 "DM Sans", system-ui, sans-serif; }
+  main { max-width: 1100px; margin: 0 auto; padding: 48px 32px 96px; }
+  h1 { font: 500 34px/1.1 Manrope, sans-serif; letter-spacing: -.01em; margin: 0 0 8px; }
+  .lead { font: italic 400 20px/1.4 Newsreader, serif; color: #3c6669; margin: 0 0 40px; max-width: 46ch; }
+  h2 { font: 500 14px/1 "DM Sans", sans-serif; color: #675f55; margin: 48px 0 14px; }
+  .row { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+  .tile { background: #fcfaf6; border: 1px solid rgb(27 21 13 / 12%); padding: 28px; display: grid; place-items: center; gap: 10px; }
+  .tile.ink { background: #061212; border-color: transparent; }
+  .tile small { color: #675f55; font-size: 12px; }
+  .tile.ink small { color: #b9b3a8; }
+  img { display: block; max-width: 100%; }
+  .sizes img { image-rendering: auto; }
+  .letterhead { background: #fcfaf6; border: 1px solid rgb(27 21 13 / 12%); padding: 24px 28px; width: 100%; box-sizing: border-box; display: flex; justify-content: space-between; align-items: flex-start; }
+  .letterhead em { font: italic 400 13px/1 Newsreader, serif; color: #675f55; display: block; margin-bottom: 2px; }
+  .letterhead strong { font: 600 15px/1.2 Manrope, sans-serif; }
+  .letterhead strong span { font-weight: 400; color: #675f55; }
+  .letterhead .r { font: 500 11px/1 "DM Sans", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #675f55; text-align: right; line-height: 1.8; }
+  .card { background: #061212; color: #f1eee8; border-radius: 8px; padding: 26px 30px; width: 380px; max-width: 100%; box-sizing: border-box; box-shadow: 0 30px 60px -30px rgb(0 0 0 / 50%); }
+  .card .name { font: 600 22px/1.15 Manrope, sans-serif; margin: 22px 0 2px; }
+  .card .name span { font-weight: 400; opacity: .78; }
+  .card .t { font-size: 12px; opacity: .8; }
+  .card .foot { margin-top: 28px; font-size: 11px; opacity: .6; display: flex; justify-content: space-between; }
+  .why { max-width: 62ch; color: #4a443b; }
+  .why p { margin: 0 0 10px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Darshan Borse — identity</h1>
+  <p class="lead">The mark is the site's own signature: a line that rises through honest dips and ends in the gold full stop. The wordmark is the letterhead.</p>
+
+  <h2>Mark</h2>
+  <div class="row">
+    <div class="tile"><img src="mark.svg" width="160" height="160" alt="" /><small>primary</small></div>
+    <div class="tile ink"><img src="mark-on-ink.svg" width="160" height="160" alt="" /><small>on ink</small></div>
+    <div class="tile"><img src="mark-small.svg" width="160" height="160" alt="" /><small>small sizes: the full stop alone</small></div>
+    <div class="tile sizes"><div class="row" style="gap:16px"><img src="icon-64.png" width="64" height="64" alt="" /><img src="icon-32.png" width="32" height="32" alt="" /><img src="icon-16.png" width="16" height="16" alt="" /></div><small>64, 32 and 16 (the favicon)</small></div>
+  </div>
+
+  <h2>Wordmark</h2>
+  <div class="row">
+    <div class="tile"><img src="wordmark.svg" height="84" alt="" /></div>
+    <div class="tile ink"><img src="wordmark-on-ink.svg" height="84" alt="" /></div>
+    <div class="tile"><img src="wordmark-tagline.svg" height="116" alt="" /><small>with the title</small></div>
+  </div>
+
+  <h2>Lockup</h2>
+  <div class="row">
+    <div class="tile"><img src="lockup.svg" height="132" alt="" /></div>
+    <div class="tile ink"><img src="lockup-on-ink.svg" height="132" alt="" /></div>
+  </div>
+
+  <h2>In use</h2>
+  <div class="row">
+    <div class="letterhead">
+      <div style="display:flex;gap:14px;align-items:center"><img src="mark.svg" width="44" height="44" alt="" /><div><em>Hey, I'm</em><strong>Darshan <span>Borse</span></strong><br /><small style="color:#675f55;font-size:11px">Financial advisor, ARN-283719</small></div></div>
+      <div class="r">About<br />Contact</div>
+    </div>
+  </div>
+  <div class="row" style="margin-top:24px">
+    <div class="card">
+      <img src="mark.svg" width="40" height="40" alt="" />
+      <div class="name">Darshan <span>Borse</span></div>
+      <div class="t">Financial advisor, Home of Investments</div>
+      <div class="foot"><span>+91 95294 35199</span><span>Dhule and Pune</span></div>
+    </div>
+  </div>
+
+  <h2>Share image</h2>
+  <div class="row"><img src="../public/og-image.jpg" width="600" height="315" alt="" style="border:1px solid rgb(27 21 13 / 12%)" /></div>
+
+  <h2>Why this</h2>
+  <div class="why">
+    <p>Every financial-advisor logo is a rising arrow, a shield or a pair of initials. This one is a sentence: the plan, with its bad months, arriving at a full stop. It is also already on every page of the site, so the site and the card say the same thing.</p>
+    <p>The full stop alone is the favicon, the WhatsApp profile ring and the app icon; at that size a line would vanish, a dot on a warm disc does not. Gold stays a mark, never text, exactly as on the site.</p>
+  </div>
+</main>
+</body>
+</html>

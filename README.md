@@ -26,6 +26,7 @@ npm run dev        # http://localhost:8080
 npm run check      # typecheck + lint
 npm run build      # writes robots/sitemap, then pre-renders to dist/client
 npm run preview    # serves dist/client the way Cloudflare Pages will, at :8788
+npm run brand      # rebuilds the icons, manifest and share image from brand/
 ```
 
 QA switches: `?intro=0` skips the opening sequence, `?intro=1` forces it.
@@ -50,6 +51,7 @@ QA switches: `?intro=0` skips the opening sequence, `?intro=1` forces it.
 | `src/routes/404.tsx`, `src/components/NotFound.tsx` | The 404 page, also pre-rendered to `404.html` so the host serves it with a real 404. |
 | `scripts/seo.mjs` | Pre-build: robots.txt, and sitemap.xml once `siteUrl` is set. |
 | `public/_headers` | Security headers for every file, long cache for assets and fonts. |
+| `brand/` | The identity: mark, wordmark and lockup SVGs, the build script that derives the favicons, app icons, manifest and share image from them, and `index.html`, a sheet showing it all. |
 
 ## Design system, in short
 
@@ -94,9 +96,8 @@ and the contribution rules live in `docs/` and `CONTRIBUTING.md`; releases in
 
 1. Set `siteUrl` in `src/lib/site.ts` to the live origin (no trailing slash).
    This switches on the sitemap, canonical tags and absolute share addresses.
-2. Replace `public/og-image.jpg` (1200×630) and `public/favicon.ico` with the
-   final identity; add an Apple touch icon and a web manifest when the logo
-   arrives.
+2. If the identity changes, edit `brand/` and run `npm run brand`; it rewrites
+   the favicons, app icons, manifest and share image in `public/`.
 3. Confirm the values marked `PLACEHOLDER_` in `src/lib/site.ts`, and the
    IRDAI licence number.
 4. `npm run build`, then `npm run deploy` (Cloudflare Pages; the first run

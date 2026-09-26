@@ -120,7 +120,12 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
             },
           ]
         : []),
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      // Identity: the full stop on the warm disc (see brand/). SVG where supported,
+      // the .ico for older engines, the PNG for iOS home screens.
+      { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
+      { rel: "icon", href: "/favicon.ico", sizes: "16x16 32x32 64x64" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
+      { rel: "manifest", href: "/site.webmanifest" },
     ],
   }),
   shellComponent: RootShell,

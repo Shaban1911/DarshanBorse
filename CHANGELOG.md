@@ -6,6 +6,10 @@ All notable changes to this site. Dates are release dates.
 
 ### Added
 
+- The identity: a mark made from the site's own growth line and gold full stop
+  on the hero's warm disc, a wordmark in the letterhead's faces, and the
+  derived favicon, SVG icon, Apple touch icon, web manifest and share image,
+  all built from `brand/` by `npm run brand`.
 - Unit tests (Vitest) for the site config, word masks, the rotating goal and
   the sitemap script; end-to-end and accessibility tests (Playwright, axe).
 - Continuous integration: typecheck, lint, tests, build, Lighthouse budgets.
