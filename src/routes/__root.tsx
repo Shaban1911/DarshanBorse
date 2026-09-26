@@ -14,42 +14,7 @@ import { Intro } from "../components/Intro";
 import { PageWipe } from "../components/PageWipe";
 import { introWords } from "../lib/site";
 import { ogImage, legalName, registration, arn, cities, siteUrl } from "../lib/site";
-import { WipeLink } from "../components/PageWipe";
-
-/**
- * 404, in the site's own words: the plan doesn't have this page. Paper, the
- * letterhead, one sentence in each voice, and the way back. No "404" set in
- * giant type — the number is a system's word, not his.
- */
-function NotFoundComponent() {
-  return (
-    <section className="lost paper">
-      <svg
-        className="hero-line"
-        viewBox="0 0 1000 1000"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <path
-          pathLength="1"
-          vectorEffect="non-scaling-stroke"
-          d="M -20 820 C 90 805 140 760 200 745 C 265 728 290 770 330 720 C 375 665 395 610 440 590 C 490 570 505 630 545 595 C 600 545 615 470 670 445 C 720 422 740 470 785 425 C 835 375 860 300 915 268 C 950 248 980 235 1020 220"
-        />
-      </svg>
-      <div className="lost-copy">
-        <p className="lost-you">I was looking for something.</p>
-        <h1>It isn't in the plan.</h1>
-        <p className="lost-him">
-          This page may have moved, or it never existed. The plan is still one page, and it starts
-          at the beginning.
-        </p>
-        <WipeLink to="/" className="lost-back">
-          Back to the first page
-        </WipeLink>
-      </div>
-    </section>
-  );
-}
+import { NotFound } from "../components/NotFound";
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
@@ -115,10 +80,8 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
     scripts: [
       {
         children:
-          // Decided BEFORE first paint so the overlay never flashes and the hero
-          // entrance is offset correctly. The opening plays on every load;
+          // Runs BEFORE first paint: the opening plays on / and /about only;
           // ?intro=0 skips it (QA), ?intro=1 forces it even under reduced motion.
-          // The opening belongs to the two real pages only; a wrong address gets no curtain.
           "try{var d=document.documentElement.dataset;var p=location.pathname.replace(/\\/+$/,'')||'/';if(/[?&]intro=0(&|$)/.test(location.search)||!/^\\/(about)?$/.test(p)){d.introSeen='1'}else if(/[?&]intro(=|&|$)/.test(location.search)){d.introForce='1'}else if(matchMedia('(prefers-reduced-motion: reduce)').matches){d.introSeen='1'}}catch(e){}",
       },
     ],
@@ -162,7 +125,7 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
   }),
   shellComponent: RootShell,
   component: RootComponent,
-  notFoundComponent: NotFoundComponent,
+  notFoundComponent: () => <NotFound />,
   errorComponent: ErrorComponent,
 });
 

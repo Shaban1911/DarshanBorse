@@ -13,6 +13,10 @@ All notable changes to this site. Dates are release dates.
 
 ### Changed
 
+- The site is now fully static: every page is pre-rendered to HTML at build
+  time and `dist/client` is the whole deployable, hosted on Cloudflare Pages.
+  The worker, Nitro and the runtime server files are gone; the 404 page is
+  pre-rendered to `404.html`.
 - Own Vite configuration; the Lovable build wrapper, Tailwind and the UI-kit
   layer are removed. The stylesheet is split into per-concern files.
 - The opening sequence's timing lives in the stylesheet only; the page

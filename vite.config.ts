@@ -2,18 +2,16 @@ import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import viteReact from "@vitejs/plugin-react";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import { nitro } from "nitro/vite";
 
 /**
  * Build configuration.
  *
- * - TanStack Start provides file-based routing and SSR; the server entry is
- *   `src/server.ts`, which wraps the framework handler with a friendly 500.
- * - On `vite build`, Nitro packages the app as a Cloudflare Worker (module
- *   syntax, Node compatibility on) and emits the deploy config next to it.
+ * - TanStack Start provides file-based routing and rendering.
+ * - `vite build` pre-renders every page to static HTML in dist/client, which
+ *   is the whole deployable. There is no server at runtime.
  * - The dev server listens on all interfaces at :8080.
  */
-export default defineConfig(({ command }) => ({
+export default defineConfig({
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
     dedupe: ["react", "react-dom", "react/jsx-runtime"],
@@ -22,20 +20,20 @@ export default defineConfig(({ command }) => ({
   server: { host: "::", port: 8080 },
   plugins: [
     tanstackStart({
-      server: { entry: "server" },
       importProtection: {
         behavior: "error",
         client: { files: ["**/server/**"], specifiers: ["server-only"] },
       },
+      // The site is static: every page is rendered to HTML at build time and
+      // only dist/client is deployed. The server bundle in dist/server is the
+      // vehicle the prerenderer runs, nothing more. Pages are written as
+      // about.html rather than about/index.html so the address stays /about.
+      // The /404 route renders to 404.html; static hosts serve it for any
+      // unknown address with a real 404 status. Before hydration the head
+      // script moves the address to /404 so the page hydrates as rendered.
+      prerender: { enabled: true, crawlLinks: true, autoSubfolderIndex: false, failOnError: true },
+      pages: [{ path: "/" }, { path: "/about" }, { path: "/404" }],
     }),
-    ...(command === "build"
-      ? [
-          nitro({
-            preset: "cloudflare-module",
-            cloudflare: { nodeCompat: true, deployConfig: true },
-          }),
-        ]
-      : []),
     viteReact(),
   ],
-}));
+});

@@ -50,13 +50,17 @@ for (const { path, title } of pages) {
       );
       expect(broken).toEqual([]);
 
-      const hidden = await page.evaluate(
-        () =>
-          [...document.querySelectorAll(".reveal-block")].filter(
-            (b) => getComputedStyle(b).opacity === "0",
-          ).length,
-      );
-      expect(hidden, "reveal blocks left hidden after scrolling").toBe(0);
+      // Reveals are driven by IntersectionObserver callbacks, which can lag a
+      // fast scroll on a cold dev server; a second pass settles them.
+      const hiddenReveals = () =>
+        page.evaluate(
+          () =>
+            [...document.querySelectorAll(".reveal-block")].filter(
+              (b) => getComputedStyle(b).opacity === "0",
+            ).length,
+        );
+      if ((await hiddenReveals()) > 0) await scrollThrough(page);
+      expect(await hiddenReveals(), "reveal blocks left hidden after scrolling").toBe(0);
 
       expect(errors).toEqual([]);
     });

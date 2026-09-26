@@ -10,8 +10,9 @@ own name; the About page is the letter.
 
 ## Stack
 
-- TanStack Start (React 19, file-based routing, SSR) on Nitro, deployed as a
-  Cloudflare Worker.
+- TanStack Start (React 19, file-based routing), pre-rendered to static HTML
+  at build time. There is no server at runtime: the deployable is
+  `dist/client`, hosted on Cloudflare Pages (free, with the domain).
 - Plain CSS on custom properties (`src/styles.css`). No utility framework.
 - Self-hosted variable fonts (`public/fonts`): Manrope (display), DM Sans
   (body), Newsreader (the serif italic voice).
@@ -23,14 +24,8 @@ own name; the About page is the letter.
 npm i
 npm run dev        # http://localhost:8080
 npm run check      # typecheck + lint
-npm run build      # writes robots/sitemap, then builds to .output
-```
-
-Preview the production build in the Cloudflare runtime (stop it before the
-next build — it locks `.output`):
-
-```sh
-cd .output && npx wrangler dev --port 8787 --compatibility-date 2026-09-01
+npm run build      # writes robots/sitemap, then pre-renders to dist/client
+npm run preview    # serves dist/client the way Cloudflare Pages will, at :8788
 ```
 
 QA switches: `?intro=0` skips the opening sequence, `?intro=1` forces it.
@@ -52,9 +47,9 @@ QA switches: `?intro=0` skips the opening sequence, `?intro=1` forces it.
 | `src/components/Reveal.tsx`, `RollText.tsx` | Scroll reveals and per-word masks. |
 | `src/components/ResponsiveImage.tsx` | AVIF/WebP/fallback `<picture>` from the variants in `src/assets`. |
 | `src/components/Cursor.tsx` | Pointer-only custom cursor (inverts over ink). |
-| `src/server.ts`, `src/start.ts`, `src/lib/error-*.ts` | Server entry: security headers on every document, a friendly 500 page; CSRF middleware. |
+| `src/routes/404.tsx`, `src/components/NotFound.tsx` | The 404 page, also pre-rendered to `404.html` so the host serves it with a real 404. |
 | `scripts/seo.mjs` | Pre-build: robots.txt, and sitemap.xml once `siteUrl` is set. |
-| `public/_headers` | Cache and security headers for static assets. Documents get their security headers from `src/server.ts`. |
+| `public/_headers` | Security headers for every file, long cache for assets and fonts. |
 
 ## Design system, in short
 
@@ -104,6 +99,7 @@ and the contribution rules live in `docs/` and `CONTRIBUTING.md`; releases in
    arrives.
 3. Confirm the values marked `PLACEHOLDER_` in `src/lib/site.ts`, and the
    IRDAI licence number.
-4. `npm run build`, then `npx wrangler deploy` from `.output`.
+4. `npm run build`, then `npm run deploy` (Cloudflare Pages; the first run
+   asks you to log in and creates the project).
 
 © Darshan Borse. All rights reserved. Site by Shahaban Mallick.
