@@ -84,6 +84,15 @@ Three rules keep the site whole there:
 - Selectors an old engine cannot parse (`:focus-visible`) get their own rule,
   because an unknown pseudo-class drops the whole selector list.
 
+The scroll-driven sections (the hero's drift, the slips gathering, the thread,
+the ink's overlap) have a still version, and the head script picks it before
+first paint by setting `data-static` on `<html>`: for engines without
+scroll-driven animations, and for every WebKit browser, because Safari 26
+paints anything with a scroll-driven animation above the rest of the page,
+fixed letterhead included. `?static=1` previews the still version anywhere;
+the end-to-end suite audits it as its own page. Revisit the WebKit rule when a
+Safari release fixes the paint order.
+
 `npm run build` ends with `scripts/check-css.mjs`, which reads the built
 stylesheet and fails the build if any of that has been lost. CSS goes through
 PostCSS and the esbuild minifier: Lightning CSS was dropping the fallbacks.

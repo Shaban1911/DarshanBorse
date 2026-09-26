@@ -15,6 +15,9 @@
     margin-top: 0;
   }
 }
+:root[data-static] .reveal {
+  margin-top: 0;
+}
 /* at least a viewport tall, so it fully covers the ending while the two travel together */
 .reveal > .how {
   position: relative;

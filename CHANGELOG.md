@@ -6,6 +6,11 @@ All notable changes to this site. Dates are release dates.
 
 ### Fixed
 
+- Safari 26 (iPhone) painted the hero's portrait and disc, the slips and the
+  plan sheet above the sections and the letterhead: WebKit lifts anything with
+  a scroll-driven animation over the page. The head script now marks WebKit
+  `data-static` before first paint and those sections keep their still
+  version, the same one older engines get; `?static=1` previews it.
 - Phones that never updated (iOS 15 and earlier Safari) lost the hero and the
   plan stage: the CSS build was stripping the `vh`/`hidden` fallbacks written
   before `svh`/`clip`, and the disc size lived in a custom property holding

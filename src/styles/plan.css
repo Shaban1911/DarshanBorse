@@ -241,12 +241,12 @@
   }
 }
 @supports (animation-timeline: view()) {
-  .gather-heading {
+  :root:not([data-static]) .gather-heading {
     animation: rise-in linear both;
     animation-timeline: --gather;
     animation-range: entry 55% entry 100%;
   }
-  .slip {
+  :root:not([data-static]) .slip {
     animation:
       slip-gather cubic-bezier(0.4, 0, 0.2, 1) both,
       slip-fade linear both;
@@ -255,22 +255,22 @@
       contain calc(3% + var(--n) * 2.2%) contain calc(22% + var(--n) * 2.2%),
       contain 43% contain 49%;
   }
-  .plan-sheet {
+  :root:not([data-static]) .plan-sheet {
     animation: sheet-grow cubic-bezier(0.4, 0, 0.2, 1) both;
     animation-timeline: --gather;
     animation-range: contain 45% contain 58%;
   }
-  .plan-line {
+  :root:not([data-static]) .plan-line {
     animation: rise-in linear both;
     animation-timeline: --gather;
     animation-range: contain calc(57% + var(--n) * 6%) contain calc(63% + var(--n) * 6%);
   }
-  .plan-line b::after {
+  :root:not([data-static]) .plan-line b::after {
     animation: pen-line linear both;
     animation-timeline: --gather;
     animation-range: contain calc(62% + var(--n) * 6%) contain calc(67% + var(--n) * 6%);
   }
-  .plan-sign {
+  :root:not([data-static]) .plan-sign {
     animation: rise-in linear both;
     animation-timeline: --gather;
     animation-range: contain 83% contain 88%;
@@ -303,6 +303,9 @@
     }
   }
 }
+/* the still version: engines without scroll-driven animation, and WebKit,
+   which the head script marks data-static (Safari 26 paints scroll-driven
+   layers above everything else). The finished sheet simply sits on the page. */
 @supports not (animation-timeline: view()) {
   .gather-space,
   .slip {
@@ -311,4 +314,11 @@
   .stage {
     position: relative;
   }
+}
+:root[data-static] .gather-space,
+:root[data-static] .slip {
+  display: none;
+}
+:root[data-static] .stage {
+  position: relative;
 }

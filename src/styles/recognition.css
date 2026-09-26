@@ -188,13 +188,13 @@
   stroke-width: 7 !important;
 }
 @supports (animation-timeline: view()) {
-  .thread path:first-child {
+  :root:not([data-static]) .thread path:first-child {
     stroke-dashoffset: 1;
     animation: line-draw linear both;
     animation-timeline: --thread;
     animation-range: cover 6% cover 72%;
   }
-  .thread-now {
+  :root:not([data-static]) .thread-now {
     opacity: 0;
     animation: thread-dot linear both;
     animation-timeline: --thread;

@@ -345,14 +345,17 @@
   }
 }
 
-/* scroll-driven depth: copy, person and disc drift at different speeds */
+/* scroll-driven depth: copy, person and disc drift at different speeds.
+   Not on WebKit: Safari 26 paints anything with a scroll-driven animation
+   above the rest of the page, so the head script marks it data-static and
+   it keeps the still hero. */
 @supports (animation-timeline: scroll()) {
-  .hero-copy {
+  :root:not([data-static]) .hero-copy {
     animation: copy-drift linear both;
     animation-timeline: scroll(root);
     animation-range: 0 100vh;
   }
-  .hero-portrait {
+  :root:not([data-static]) .hero-portrait {
     animation:
       hero-fade 1.6s var(--ease-roll) calc(var(--intro-offset) + 0.55s) both,
       portrait-drift linear both;
@@ -361,7 +364,7 @@
       normal,
       0 100vh;
   }
-  .hero-disc {
+  :root:not([data-static]) .hero-disc {
     animation:
       disc-in 1.6s var(--ease-roll) calc(var(--intro-offset) + 0.3s) both,
       disc-drift linear both;
@@ -370,7 +373,7 @@
       normal,
       0 100vh;
   }
-  .hero-line {
+  :root:not([data-static]) .hero-line {
     animation: line-drift linear both;
     animation-timeline: scroll(root);
     animation-range: 0 100vh;
@@ -396,10 +399,10 @@
       translate: 0 -6vh;
     }
   }
-  :root[data-intro-skipped] .hero-portrait {
+  :root:not([data-static])[data-intro-skipped] .hero-portrait {
     animation-name: hero-fade-now, portrait-drift;
   }
-  :root[data-intro-skipped] .hero-disc {
+  :root:not([data-static])[data-intro-skipped] .hero-disc {
     animation-name: disc-in-now, disc-drift;
   }
 }

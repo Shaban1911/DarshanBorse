@@ -9,6 +9,8 @@ import { expect, test, type Page } from "@playwright/test";
  */
 const pages = [
   { path: "/?intro=0", title: /Darshan Borse — Financial advisor/ },
+  // the still version Safari and older engines get
+  { path: "/?intro=0&static=1", title: /Darshan Borse — Financial advisor/ },
   { path: "/about?intro=0", title: /About Darshan Borse/ },
 ];
 
