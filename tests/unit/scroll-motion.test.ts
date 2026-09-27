@@ -30,8 +30,8 @@ describe("easing", () => {
     expect(ease(0)).toBe(0);
     expect(ease(1)).toBe(1);
     // fast out of the gate, settling gently: past the midpoint by halfway
-    expect(ease(0.5)).toBeGreaterThan(0.6);
-    expect(ease(0.5)).toBeLessThan(0.75);
+    expect(ease(0.5)).toBeGreaterThan(0.7);
+    expect(ease(0.5)).toBeLessThan(0.85);
     expect(ease(0.2)).toBeLessThan(0.2);
     expect(ease(0.8)).toBeGreaterThan(0.8);
   });
