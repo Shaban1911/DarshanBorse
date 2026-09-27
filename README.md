@@ -125,8 +125,11 @@ and the contribution rules live in `docs/` and `CONTRIBUTING.md`; releases in
 
 ## Before launch
 
-1. Set `siteUrl` in `src/lib/site.ts` to the live origin (no trailing slash).
-   This switches on the sitemap, canonical tags and absolute share addresses.
+1. `siteUrl` in `src/lib/site.ts` is the live origin (no trailing slash); it
+   drives the sitemap, canonical tags and absolute share addresses. The domain
+   (homeofinvestments.com, registered at GoDaddy) uses Cloudflare nameservers
+   and is attached to the Pages project as a custom domain, with www alongside
+   it; `public/_redirects` sends www to the bare domain.
 2. If the identity changes, edit `brand/` and run `npm run brand`; it rewrites
    the favicons, app icons, manifest and share image in `public/`.
 3. Confirm the values marked `PLACEHOLDER_` in `src/lib/site.ts`, and the

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://darshan-borse.pages.dev/sitemap.xml
+Sitemap: https://homeofinvestments.com/sitemap.xml

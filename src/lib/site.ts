@@ -79,10 +79,10 @@ export const whatsappUrl = `https://wa.me/${phoneHref.replace("+", "")}?text=${e
 /**
  * Absolute origin, used for the canonical tag, og:url, the sitemap and to make
  * og:image absolute (required by Facebook/WhatsApp). No trailing slash. The
- * Cloudflare Pages address for now; change it to the client's domain (bought on
- * GoDaddy) once its nameservers point at Cloudflare.
+ * domain is registered at GoDaddy and served through Cloudflare;
+ * darshan-borse.pages.dev stays as the fallback address.
  */
-export const siteUrl = "https://darshan-borse.pages.dev";
+export const siteUrl = "https://homeofinvestments.com";
 export const ogImage = `${siteUrl}/og-image.jpg`;
 
 /**
