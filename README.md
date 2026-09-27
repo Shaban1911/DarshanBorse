@@ -129,7 +129,9 @@ and the contribution rules live in `docs/` and `CONTRIBUTING.md`; releases in
    drives the sitemap, canonical tags and absolute share addresses. The domain
    (homeofinvestments.com, registered at GoDaddy) uses Cloudflare nameservers
    and is attached to the Pages project as a custom domain, with www alongside
-   it; `public/_redirects` sends www to the bare domain.
+   it. A Cloudflare Redirect Rule (dashboard: Rules, "Redirect from WWW to
+   root") sends www to the bare domain; the Pages `_redirects` file cannot
+   redirect across hostnames.
 2. If the identity changes, edit `brand/` and run `npm run brand`; it rewrites
    the favicons, app icons, manifest and share image in `public/`.
 3. Confirm the values marked `PLACEHOLDER_` in `src/lib/site.ts`, and the
