@@ -22,6 +22,12 @@ All notable changes to this site. Dates are release dates.
 
 ### Added
 
+- Search: titles and descriptions per page written for the searches people
+  make, a robots directive, complete share tags, and a structured-data graph
+  (the practice as a financial service with address, phone, map and area
+  served; Darshan with his credentials; the site; each page; a breadcrumb on
+  About), all built from `site.ts` in `src/lib/seo.ts` and covered by unit
+  tests. `docs/SEO.md` lists the off-site work that decides local rankings.
 - The plan stage holds twenty slips: PPF, EPF, NPS, bonds, home and car loans,
   household expenses, cash in hand, life insurance and real estate join the
   ten it had, re-scattered for phone and desktop.

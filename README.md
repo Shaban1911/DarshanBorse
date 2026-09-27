@@ -49,6 +49,7 @@ QA switches: `?intro=0` skips the opening sequence, `?intro=1` forces it.
 | `src/components/ResponsiveImage.tsx` | AVIF/WebP/fallback `<picture>` from the variants in `src/assets`. |
 | `src/components/Cursor.tsx` | Pointer-only custom cursor (inverts over ink). |
 | `src/routes/404.tsx`, `src/components/NotFound.tsx` | The 404 page, also pre-rendered to `404.html` so the host serves it with a real 404. |
+| `src/lib/seo.ts` | Search: each page's title and description, the shared head entries, and the structured-data graph (practice, person, site, page, breadcrumb), all from `site.ts`. See `docs/SEO.md`. |
 | `scripts/seo.mjs` | Pre-build: robots.txt, and sitemap.xml once `siteUrl` is set. |
 | `public/_headers` | Security headers for every file, long cache for assets and fonts. |
 | `brand/` | The identity: mark, wordmark and lockup SVGs, the build script that derives the favicons, app icons, manifest and share image from them, and `index.html`, a sheet showing it all. |

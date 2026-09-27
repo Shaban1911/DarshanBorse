@@ -13,7 +13,15 @@ import { SiteChrome } from "../components/SiteChrome";
 import { Intro } from "../components/Intro";
 import { PageWipe } from "../components/PageWipe";
 import { introWords } from "../lib/site";
-import { ogImage, legalName, registration, arn, cities, siteUrl } from "../lib/site";
+import {
+  ogImage,
+  legalName,
+  registration,
+  arn,
+  cities,
+  siteUrl,
+  searchConsoleToken,
+} from "../lib/site";
 import { NotFound } from "../components/NotFound";
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
@@ -70,6 +78,9 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
           content: `Personal financial guidance by ${legalName}, ${registration} (${arn}), ${cities.join(" & ")}.`,
         },
         { name: "author", content: legalName },
+        ...(searchConsoleToken
+          ? [{ name: "google-site-verification", content: searchConsoleToken }]
+          : []),
         { name: "theme-color", content: "#121a1b" },
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "Home of Investments" },
@@ -77,6 +88,7 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
         { property: "og:image", content: ogImage },
         { property: "og:image:width", content: "1200" },
         { property: "og:image:height", content: "630" },
+        { property: "og:image:type", content: "image/jpeg" },
         { property: "og:image:alt", content: `${legalName} — ${registration}` },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:image", content: ogImage },

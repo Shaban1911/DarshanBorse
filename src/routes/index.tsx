@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroSmall from "../assets/darshan-cutout-400.avif?url";
 import heroLarge from "../assets/darshan-cutout-812.avif?url";
 import { HeroGoal } from "@/components/HeroGoal";
+import { pageMeta, structuredData } from "@/lib/seo";
 import { LastPage } from "@/components/LastPage";
 import { PlanSheet } from "@/components/PlanSheet";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
@@ -29,19 +30,7 @@ import {
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [
-      { title: `${legalName} — Financial advisor, Home of Investments` },
-      {
-        name: "description",
-        content: `${registration} (${arn}). ${yearsExperience} helping Indian families, at home and abroad, turn scattered investments into one plan. Offices in ${cities.join(" and ")}.`,
-      },
-      { property: "og:title", content: `${legalName} — Financial advisor` },
-      {
-        property: "og:description",
-        content: "Most people don't need more products. They need a plan.",
-      },
-      { property: "og:image", content: ogImage },
-    ],
+    meta: pageMeta("home"),
     links: [
       // The hero portrait is the largest paint on the page: fetch it before the parser finds it.
       {
@@ -59,34 +48,7 @@ export const Route = createFileRoute("/")({
         media: "(min-width: 768px)",
       },
     ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FinancialService",
-          name: "Home of Investments",
-          legalName,
-          description: `${registration} (${arn}), ${irdaiLabel}. Works with Indian families across India and abroad, including NRIs with wealth in India; offices in ${cities.join(" and ")}.`,
-          founder: { "@type": "Person", name: legalName, jobTitle: registration },
-          disambiguatingDescription: tradeNameNote,
-          telephone: phoneHref,
-          email,
-          url: mapsUrl,
-          image: ogImage,
-          areaServed: { "@type": "Country", name: "India" },
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "Plot No. 58, Near Jai Hind Swimming Tank, Jaihind Colony, Deopur",
-            addressLocality: "Dhule",
-            addressRegion: "Maharashtra",
-            postalCode: "424002",
-            addressCountry: "IN",
-          },
-          sameAs: [instagramUrl],
-        }),
-      },
-    ],
+    scripts: [{ type: "application/ld+json", children: structuredData("home") }],
   }),
   component: HomePage,
 });

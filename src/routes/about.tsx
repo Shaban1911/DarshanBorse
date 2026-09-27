@@ -1,3 +1,4 @@
+import { pageMeta, structuredData } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { MessageCircle } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
@@ -22,42 +23,8 @@ import {
 
 export const Route = createFileRoute("/about")({
   head: () => ({
-    meta: [
-      { title: `About ${legalName} — Financial advisor` },
-      {
-        name: "description",
-        content: `${legalName}: ${yearsExperience}, ${qualification}, ${registration} (${arn}). ${clientFamilies} in India and abroad; offices in ${cities.join(" and ")}.`,
-      },
-      { property: "og:title", content: `About ${legalName}` },
-      {
-        property: "og:description",
-        content: `${yearsExperience} of personal financial guidance for Indian families, at home and abroad.`,
-      },
-      { property: "og:type", content: "profile" },
-      { property: "og:image", content: ogImage },
-    ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Person",
-          name: legalName,
-          jobTitle: registration,
-          identifier: arn,
-          worksFor: { "@type": "FinancialService", name: "Home of Investments" },
-          alumniOf: "MBA in Finance",
-          areaServed: { "@type": "Country", name: "India" },
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Dhule",
-            addressRegion: "Maharashtra",
-            addressCountry: "IN",
-          },
-          image: ogImage,
-        }),
-      },
-    ],
+    meta: pageMeta("about", "profile"),
+    scripts: [{ type: "application/ld+json", children: structuredData("about") }],
   }),
   component: AboutPage,
 });

@@ -8,9 +8,9 @@ import { expect, test, type Page } from "@playwright/test";
  * violations.
  */
 const pages = [
-  { path: "/?intro=0", title: /Darshan Borse — Financial advisor/ },
+  { path: "/?intro=0", title: /Darshan Borse — Financial Advisor/ },
   // the still version Safari and older engines get
-  { path: "/?intro=0&static=1", title: /Darshan Borse — Financial advisor/ },
+  { path: "/?intro=0&static=1", title: /Darshan Borse — Financial Advisor/ },
   { path: "/about?intro=0", title: /About Darshan Borse/ },
 ];
 
