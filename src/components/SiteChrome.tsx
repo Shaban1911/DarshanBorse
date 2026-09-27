@@ -221,9 +221,11 @@ export function SiteChrome({ children }: { children: ReactNode }) {
               {title}, {practiceName}. Goal-based financial planning for Indian families anywhere in
               the world, including NRIs with wealth in India. Offices in {cities.join(" and ")}.
             </p>
-            <a href={mapsUrl} target="_blank" rel="noreferrer">
-              {addressLine}
-            </a>
+            <address>
+              <a href={mapsUrl} target="_blank" rel="noreferrer">
+                {addressLine}
+              </a>
+            </address>
           </div>
           <div>
             <a href={`tel:${phoneHref}`}>{phoneDisplay}</a>

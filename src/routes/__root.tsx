@@ -21,6 +21,7 @@ import {
   cities,
   siteUrl,
   searchConsoleToken,
+  bingToken,
 } from "../lib/site";
 import { NotFound } from "../components/NotFound";
 
@@ -82,6 +83,10 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
           ? [{ name: "google-site-verification", content: searchConsoleToken }]
           : []),
         { name: "theme-color", content: "#121a1b" },
+        // where the practice is, for the engines that still read these
+        { name: "geo.region", content: "IN-MH" },
+        { name: "geo.placename", content: cities.join(", ") },
+        ...(bingToken ? [{ name: "msvalidate.01", content: bingToken }] : []),
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "Home of Investments" },
         { property: "og:locale", content: "en_IN" },
@@ -137,16 +142,19 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
         },
         ...(siteUrl
           ? [
-              {
-                rel: "canonical",
-                href: pageUrl,
-              },
+              { rel: "canonical", href: pageUrl },
+              // one language, one market: say so rather than leave it inferred
+              { rel: "alternate", hrefLang: "en-IN", href: pageUrl },
+              { rel: "alternate", hrefLang: "x-default", href: pageUrl },
+              { rel: "sitemap", type: "application/xml", href: `${siteUrl}/sitemap.xml` },
             ]
           : []),
         // Identity: the full stop on the warm disc (see brand/). SVG where supported,
         // the .ico for older engines, the PNG for iOS home screens.
         { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
         { rel: "icon", href: "/favicon.ico", sizes: "16x16 32x32 64x64" },
+        // search results want a square PNG in multiples of 48px
+        { rel: "icon", href: "/icon-192.png", type: "image/png", sizes: "192x192" },
         { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
         { rel: "manifest", href: "/site.webmanifest" },
       ],
@@ -164,7 +172,7 @@ function RootShell({ children }: { children: ReactNode }) {
     // <html> before React hydrates (see Intro.tsx). React 19 would otherwise report
     // those pre-hydration attributes as a mismatch on every load.
     <html
-      lang="en"
+      lang="en-IN"
       style={{ ["--intro-words" as string]: introWords.length }}
       suppressHydrationWarning
     >

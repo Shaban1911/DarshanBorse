@@ -8,3 +8,14 @@
 
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The domain is the one address search engines should know; the Pages
+# addresses serve the same site and stay out of the index.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:hash.:project.pages.dev/*
+  X-Robots-Tag: noindex

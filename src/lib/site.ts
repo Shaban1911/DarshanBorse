@@ -86,6 +86,8 @@ export const siteUrl = "https://homeofinvestments.com";
 export const ogImage = `${siteUrl}/og-image.jpg`;
 /** Google Search Console HTML-tag token, if DNS verification is not used. Empty: no tag. */
 export const searchConsoleToken = "";
+/** Bing Webmaster Tools meta token, if not imported from Search Console. Empty: no tag. */
+export const bingToken = "";
 
 /**
  * Opening sequence words. Each one disarms a fear the visitor arrives with —

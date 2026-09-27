@@ -22,8 +22,12 @@ and to tell search engines exactly who and where Darshan is.
   on About.
 - `robots` directive allowing large image previews and full snippets; the
   404 page is `noindex`.
-- `robots.txt` and `sitemap.xml` written at build time with the last change
-  date.
+- `robots.txt` and `sitemap.xml` written at build time; each page's `lastmod`
+  is the date of the last commit that touched it, and the sitemap carries the
+  share image. The head links the sitemap, declares `en-IN` with an
+  `x-default`, and offers a 192px PNG icon for the result favicon.
+- The Pages addresses (`*.pages.dev`) send `X-Robots-Tag: noindex`, so only
+  the domain is indexed; hashed assets are cached for a year.
 - Share image 1200×630 with `og:` and `twitter:` tags on every page.
 - Fonts self-hosted and preloaded, images in AVIF/WebP with sizes, security
   headers, long cache for assets. Lighthouse SEO 100, accessibility 100.
