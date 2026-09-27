@@ -33,26 +33,26 @@ QA switches: `?intro=0` skips the opening sequence, `?intro=1` forces it.
 
 ## Where things live
 
-| Path | Role |
-| --- | --- |
-| `src/lib/site.ts` | Every fact the site states: name, title, registration, phone, address, reach, hero goals, intro words, placeholders. Edit copy facts here, nowhere else. |
-| `src/routes/index.tsx` | The home page: hero, recognition slips, the plan stage, the conversation, the ending. |
-| `src/routes/about.tsx` | The letter: opening, four paragraphs, the record, the office, hello. |
-| `src/routes/__root.tsx` | Head (metadata, preloads, canonical), the 404 and error pages, the intro decision script. |
-| `src/components/SiteChrome.tsx` | The fixed letterhead (name, About/Home, Contact, WhatsApp pill), the footer, scroll state. |
-| `src/components/Intro.tsx` | The opening sequence and the curtain. CSS-timed from first paint; JS only skips and unmounts. |
-| `src/components/PageWipe.tsx` | Page transitions (sheet rises, route changes, curtains part) and `WipeLink`. |
-| `src/components/HeroGoal.tsx` | The rotating goal word in the hero. |
-| `src/components/PlanSheet.tsx` | The written one-page plan on its pile of sheets. |
-| `src/components/LastPage.tsx` | The ending: "A plan for you." and the pre-written WhatsApp message. |
-| `src/components/Reveal.tsx`, `RollText.tsx` | Scroll reveals and per-word masks. |
-| `src/components/ResponsiveImage.tsx` | AVIF/WebP/fallback `<picture>` from the variants in `src/assets`. |
-| `src/components/Cursor.tsx` | Pointer-only custom cursor (inverts over ink). |
-| `src/routes/404.tsx`, `src/components/NotFound.tsx` | The 404 page, also pre-rendered to `404.html` so the host serves it with a real 404. |
-| `src/lib/seo.ts` | Search: each page's title and description, the shared head entries, and the structured-data graph (practice, person, site, page, breadcrumb), all from `site.ts`. See `docs/SEO.md`. |
-| `scripts/seo.mjs` | Pre-build: robots.txt, and sitemap.xml once `siteUrl` is set. |
-| `public/_headers` | Security headers for every file, long cache for assets and fonts. |
-| `brand/` | The identity: mark, wordmark and lockup SVGs, the build script that derives the favicons, app icons, manifest and share image from them, and `index.html`, a sheet showing it all. |
+| Path                                                | Role                                                                                                                                                                                 |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `src/lib/site.ts`                                   | Every fact the site states: name, title, registration, phone, address, reach, hero goals, intro words, placeholders. Edit copy facts here, nowhere else.                             |
+| `src/routes/index.tsx`                              | The home page: hero, recognition slips, the plan stage, the conversation, the ending.                                                                                                |
+| `src/routes/about.tsx`                              | The letter: opening, four paragraphs, the record, the office, hello.                                                                                                                 |
+| `src/routes/__root.tsx`                             | Head (metadata, preloads, canonical), the 404 and error pages, the intro decision script.                                                                                            |
+| `src/components/SiteChrome.tsx`                     | The fixed letterhead (name, About/Home, Contact, WhatsApp pill), the footer, scroll state.                                                                                           |
+| `src/components/Intro.tsx`                          | The opening sequence and the curtain. CSS-timed from first paint; JS only skips and unmounts.                                                                                        |
+| `src/components/PageWipe.tsx`                       | Page transitions (sheet rises, route changes, curtains part) and `WipeLink`.                                                                                                         |
+| `src/components/HeroGoal.tsx`                       | The rotating goal word in the hero.                                                                                                                                                  |
+| `src/components/PlanSheet.tsx`                      | The written one-page plan on its pile of sheets.                                                                                                                                     |
+| `src/components/LastPage.tsx`                       | The ending: "A plan for you." and the pre-written WhatsApp message.                                                                                                                  |
+| `src/components/Reveal.tsx`, `RollText.tsx`         | Scroll reveals and per-word masks.                                                                                                                                                   |
+| `src/components/ResponsiveImage.tsx`                | AVIF/WebP/fallback `<picture>` from the variants in `src/assets`.                                                                                                                    |
+| `src/components/Cursor.tsx`                         | Pointer-only custom cursor (inverts over ink).                                                                                                                                       |
+| `src/routes/404.tsx`, `src/components/NotFound.tsx` | The 404 page, also pre-rendered to `404.html` so the host serves it with a real 404.                                                                                                 |
+| `src/lib/seo.ts`                                    | Search: each page's title and description, the shared head entries, and the structured-data graph (practice, person, site, page, breadcrumb), all from `site.ts`. See `docs/SEO.md`. |
+| `scripts/seo.mjs`                                   | Pre-build: robots.txt, and sitemap.xml once `siteUrl` is set.                                                                                                                        |
+| `public/_headers`                                   | Security headers for every file, long cache for assets and fonts.                                                                                                                    |
+| `brand/`                                            | The identity: mark, wordmark and lockup SVGs, the build script that derives the favicons, app icons, manifest and share image from them, and `index.html`, a sheet showing it all.   |
 
 ## Design system, in short
 
@@ -85,14 +85,18 @@ Three rules keep the site whole there:
 - Selectors an old engine cannot parse (`:focus-visible`) get their own rule,
   because an unknown pseudo-class drops the whole selector list.
 
-The scroll-driven sections (the hero's drift, the slips gathering, the thread,
-the ink's overlap) have a still version, and the head script picks it before
-first paint by setting `data-static` on `<html>`: for engines without
-scroll-driven animations, and for every WebKit browser, because Safari 26
-paints anything with a scroll-driven animation above the rest of the page,
-fixed letterhead included. `?static=1` previews the still version anywhere;
-the end-to-end suite audits it as its own page. Revisit the WebKit rule when a
-Safari release fixes the paint order.
+The scroll choreography (the hero's drift, the slips gathering into the plan,
+the thread, the ink's overlap) is written twice and must stay in step: as
+native scroll-driven animations in the stylesheet, and as the same timelines
+run by hand in `src/lib/scroll-motion.ts`. The head script decides before
+first paint and sets `data-motion` on `<html>`: `native` where the engine has
+scroll-driven animations and paints them right, `js` for engines without them
+and for every WebKit browser (Safari 26 paints anything with a scroll-driven
+animation above the rest of the page), `none` for the still version.
+`?motion=native|js|none` previews any of them; the end-to-end suite audits the
+`js` and `none` pages. `data-engine="webkit"` lets the stylesheet give the
+paper sections their own layers, since WebKit otherwise paints them late over
+the pinned hero. Revisit both WebKit rules when a Safari release fixes them.
 
 `npm run build` ends with `scripts/check-css.mjs`, which reads the built
 stylesheet and fails the build if any of that has been lost. CSS goes through
@@ -106,7 +110,7 @@ script for Safari before 15.4.
   fallback. Any `svh` is preceded by `vh`.
 - Reveal blocks are hidden only under `:root[data-hydrated]`, so the page
   reads fully if JavaScript never runs.
-- Entrance animations on the letterhead fill *backwards*, never forwards, or
+- Entrance animations on the letterhead fill _backwards_, never forwards, or
   Safari can never hide them again.
 - Nothing scrolls sideways: `html { overflow-x: clip }` plus clipping on the
   intro and the pinned stage.

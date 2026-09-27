@@ -17,6 +17,11 @@ main {
   position: relative;
   z-index: 1;
 }
+/* WebKit gives a section its own layer only once it overlaps the hero's, and
+   shows unpainted tiles at the top edge until then. Own layers from the start. */
+:root[data-engine="webkit"] .home-hero ~ .sheet-edge {
+  transform: translateZ(0);
+}
 .site-footer {
   position: relative;
   z-index: 2;

@@ -188,13 +188,13 @@
   stroke-width: 7 !important;
 }
 @supports (animation-timeline: view()) {
-  :root:not([data-static]) .thread path:first-child {
+  :root:not([data-motion="js"]):not([data-motion="none"]) .thread path:first-child {
     stroke-dashoffset: 1;
     animation: line-draw linear both;
     animation-timeline: --thread;
     animation-range: cover 6% cover 72%;
   }
-  :root:not([data-static]) .thread-now {
+  :root:not([data-motion="js"]):not([data-motion="none"]) .thread-now {
     opacity: 0;
     animation: thread-dot linear both;
     animation-timeline: --thread;
@@ -205,6 +205,12 @@
       opacity: 1;
     }
   }
+}
+:root[data-motion="js"] .thread path:first-child {
+  stroke-dashoffset: calc(1 - var(--draw, 0));
+}
+:root[data-motion="js"] .thread-now {
+  opacity: var(--dot, 0);
 }
 .recognise-turn {
   margin-top: 4.5rem;

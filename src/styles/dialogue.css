@@ -11,11 +11,11 @@
   margin-top: -32svh;
 }
 @supports not (animation-timeline: view()) {
-  .reveal {
+  :root:not([data-motion="js"]) .reveal {
     margin-top: 0;
   }
 }
-:root[data-static] .reveal {
+:root[data-motion="none"] .reveal {
   margin-top: 0;
 }
 /* at least a viewport tall, so it fully covers the ending while the two travel together */

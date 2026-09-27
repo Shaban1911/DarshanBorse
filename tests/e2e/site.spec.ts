@@ -9,8 +9,9 @@ import { expect, test, type Page } from "@playwright/test";
  */
 const pages = [
   { path: "/?intro=0", title: /Darshan Borse — Financial Advisor/ },
-  // the still version Safari and older engines get
-  { path: "/?intro=0&static=1", title: /Darshan Borse — Financial Advisor/ },
+  // the JS-driven choreography WebKit and older engines get, and the still version
+  { path: "/?intro=0&motion=js", title: /Darshan Borse — Financial Advisor/ },
+  { path: "/?intro=0&motion=none", title: /Darshan Borse — Financial Advisor/ },
   { path: "/about?intro=0", title: /About Darshan Borse/ },
 ];
 

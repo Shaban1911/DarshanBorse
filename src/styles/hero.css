@@ -345,17 +345,30 @@
   }
 }
 
+/* the drift driven from JS: --sy is scroll over the first viewport, 0–1 */
+:root[data-motion="js"] .hero-copy {
+  translate: 0 calc(8vh * var(--sy, 0));
+  opacity: calc(1 - 0.7 * var(--sy, 0));
+}
+:root[data-motion="js"] .hero-portrait {
+  translate: 0 calc(10vh * var(--sy, 0));
+}
+:root[data-motion="js"] .hero-disc {
+  translate: 0 calc(16vh * var(--sy, 0));
+}
+:root[data-motion="js"] .hero-line {
+  translate: 0 calc(-6vh * var(--sy, 0));
+}
 /* scroll-driven depth: copy, person and disc drift at different speeds.
-   Not on WebKit: Safari 26 paints anything with a scroll-driven animation
-   above the rest of the page, so the head script marks it data-static and
-   it keeps the still hero. */
+   Native only where the engine has it and paints it right; elsewhere the
+   head script sets data-motion="js" and the rules above take over. */
 @supports (animation-timeline: scroll()) {
-  :root:not([data-static]) .hero-copy {
+  :root:not([data-motion="js"]):not([data-motion="none"]) .hero-copy {
     animation: copy-drift linear both;
     animation-timeline: scroll(root);
     animation-range: 0 100vh;
   }
-  :root:not([data-static]) .hero-portrait {
+  :root:not([data-motion="js"]):not([data-motion="none"]) .hero-portrait {
     animation:
       hero-fade 1.6s var(--ease-roll) calc(var(--intro-offset) + 0.55s) both,
       portrait-drift linear both;
@@ -364,7 +377,7 @@
       normal,
       0 100vh;
   }
-  :root:not([data-static]) .hero-disc {
+  :root:not([data-motion="js"]):not([data-motion="none"]) .hero-disc {
     animation:
       disc-in 1.6s var(--ease-roll) calc(var(--intro-offset) + 0.3s) both,
       disc-drift linear both;
@@ -373,7 +386,7 @@
       normal,
       0 100vh;
   }
-  :root:not([data-static]) .hero-line {
+  :root:not([data-motion="js"]):not([data-motion="none"]) .hero-line {
     animation: line-drift linear both;
     animation-timeline: scroll(root);
     animation-range: 0 100vh;
@@ -399,10 +412,10 @@
       translate: 0 -6vh;
     }
   }
-  :root:not([data-static])[data-intro-skipped] .hero-portrait {
+  :root:not([data-motion="js"]):not([data-motion="none"])[data-intro-skipped] .hero-portrait {
     animation-name: hero-fade-now, portrait-drift;
   }
-  :root:not([data-static])[data-intro-skipped] .hero-disc {
+  :root:not([data-motion="js"]):not([data-motion="none"])[data-intro-skipped] .hero-disc {
     animation-name: disc-in-now, disc-drift;
   }
 }

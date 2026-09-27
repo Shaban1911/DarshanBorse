@@ -6,6 +6,14 @@ All notable changes to this site. Dates are release dates.
 
 ### Fixed
 
+- The scroll choreography now runs everywhere: where the engine has no
+  scroll-driven animations, or paints them wrongly (WebKit), a small driver
+  in `src/lib/scroll-motion.ts` runs the same timelines by hand and the
+  stylesheet maps its progress to the same transforms. iPhones get the slips
+  gathering, the sheet growing and the thread drawing exactly as Chrome does.
+- Older iPhones showed a transparent band at the top of a paper section while
+  scrolling over the hero: WebKit created the section's layer late. On WebKit
+  the sections now have their own layers from the start.
 - Safari 26 (iPhone) painted the hero's portrait and disc, the slips and the
   plan sheet above the sections and the letterhead: WebKit lifts anything with
   a scroll-driven animation over the page. The head script now marks WebKit

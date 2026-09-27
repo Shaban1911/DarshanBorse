@@ -8,6 +8,8 @@ import { PlanSheet } from "@/components/PlanSheet";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { Reveal } from "@/components/Reveal";
 import { RollText } from "@/components/RollText";
+import { startScrollMotion, wantsScrollMotion } from "@/lib/scroll-motion";
+import { useEffect } from "react";
 import {
   phoneHref,
   email,
@@ -155,6 +157,9 @@ const dialogue = [
 ] as const;
 
 function HomePage() {
+  // the scroll choreography by hand, where the engine cannot run it natively
+  useEffect(() => (wantsScrollMotion() ? startScrollMotion() : undefined), []);
+
   return (
     <>
       {/* ═══ hero: one sentence, one face, one action ═══
