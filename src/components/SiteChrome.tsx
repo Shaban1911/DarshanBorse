@@ -1,8 +1,8 @@
+import { Diagnostics } from "@/components/Diagnostics";
 import { useRouterState } from "@tanstack/react-router";
 import { WipeLink, useWipe, contactOffset } from "@/components/PageWipe";
 import { MessageCircle } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Cursor } from "@/components/Cursor";
 import {
   phoneDisplay,
   phoneHref,
@@ -170,7 +170,6 @@ export function SiteChrome({ children }: { children: ReactNode }) {
 
   return (
     <div className="site">
-      <Cursor />
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>
@@ -213,6 +212,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       <main id="main-content">{children}</main>
 
       {/* the footer is the letterhead's last line: who, where, how to reach him, and the record */}
+      <Diagnostics />
       <footer className="site-footer" data-dark>
         <div className="footer-grid">
           <div>

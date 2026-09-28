@@ -98,6 +98,7 @@ class Vars {
 /** Starts the driver on the current page. Returns the function that stops it. */
 export function startScrollMotion(): () => void {
   const root = document.documentElement;
+  (window as unknown as { __scrollMotion?: string }).__scrollMotion = "running";
   const vars = new Vars();
 
   const gather = document.querySelector<HTMLElement>(".gather");
@@ -172,7 +173,15 @@ export function startScrollMotion(): () => void {
 export function wantsScrollMotion(): boolean {
   if (typeof document === "undefined") return false;
   const d = document.documentElement.dataset;
-  if (d["motion"] !== "js") return false;
+  const w = window as unknown as { __scrollMotion?: string };
+  if (d["motion"] !== "js") {
+    w.__scrollMotion = `not needed (${d["motion"] ?? "unset"})`;
+    return false;
+  }
   if (d["introForce"]) return true;
-  return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    w.__scrollMotion = "off: reduced motion";
+    return false;
+  }
+  return true;
 }

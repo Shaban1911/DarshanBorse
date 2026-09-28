@@ -1,44 +1,46 @@
-/* Pointer-only custom cursor. */
+/* The cursor: the system arrow's shape and size, in the letterhead's colours.
+   Pointer devices only. Ink on paper, paper on ink, gold over anything that
+   can be pressed. Image cursors follow the pointer with no lag at all, which a
+   JavaScript follower never can; the SVG is crisp on every screen and the PNG
+   stands in for engines that refuse SVG cursors. Text fields keep the system
+   I-beam. */
 
 @media (hover: hover) and (pointer: fine) {
-  html.has-cursor,
-  html.has-cursor a,
-  html.has-cursor button {
-    cursor: none;
+  html {
+    cursor:
+      url("/cursors/ink.svg") 3 2,
+      url("/cursors/ink.png") 3 2,
+      auto;
   }
-  .cursor {
-    display: block;
-    mix-blend-mode: difference;
+  a,
+  button,
+  [role="button"],
+  label,
+  summary {
+    cursor:
+      url("/cursors/gold.svg") 3 2,
+      url("/cursors/gold.png") 3 2,
+      pointer;
   }
-  /* white under difference: dark on paper, light on ink — the footer included */
-  .cursor-dot {
-    position: absolute;
-    width: 0.45rem;
-    height: 0.45rem;
-    border-radius: 50%;
-    background: #fff;
-    translate: -50% -50%;
+  [data-dark],
+  .frame.on-dark {
+    cursor:
+      url("/cursors/paper.svg") 3 2,
+      url("/cursors/paper.png") 3 2,
+      auto;
   }
-  .cursor-ring {
-    position: absolute;
-    width: 2.4rem;
-    height: 2.4rem;
-    border-radius: 50%;
-    border: 1px solid rgb(255 255 255 / 75%);
-    translate: -50% -50%;
-    transition:
-      width 0.35s var(--ease-roll),
-      height 0.35s var(--ease-roll),
-      background-color 0.35s,
-      border-color 0.35s;
+  [data-dark] a,
+  [data-dark] button,
+  [data-dark] [role="button"],
+  .frame.on-dark a,
+  .frame.on-dark button {
+    cursor:
+      url("/cursors/gold-on-ink.svg") 3 2,
+      url("/cursors/gold-on-ink.png") 3 2,
+      pointer;
   }
-  .cursor.is-link .cursor-ring {
-    width: 3.6rem;
-    height: 3.6rem;
-    background: rgb(255 255 255 / 28%);
-    border-color: transparent;
-  }
-  .cursor.is-link .cursor-dot {
-    background: #fff;
+  input,
+  textarea {
+    cursor: text;
   }
 }

@@ -80,3 +80,19 @@ Every section change means something:
 Plain English, short sentences, no idioms, no jargon. English is a second
 language for most readers. Every fact on the page comes from
 `src/lib/site.ts`; anything unconfirmed is marked `PLACEHOLDER_`.
+
+## Cursor and scrollbar
+
+The cursor keeps the system arrow's shape and size and takes the letterhead's
+colours: ink on paper, paper on ink, gold over anything that can be pressed.
+It is a CSS image cursor (`public/cursors/`, SVG with PNG fallback), so it
+tracks the pointer with no lag, costs no JavaScript, and appears only on
+pointer devices. Text fields keep the system I-beam. Nothing else in the
+stylesheet sets `cursor`.
+
+The scrollbar stays. It is how a visitor knows where they are on a long
+page. It is thin and in the palette where the engine allows (`scrollbar-width`,
+`scrollbar-color`, with `::-webkit-scrollbar` for older Chrome and Safari),
+the platform's own elsewhere, and an overlay on phones regardless. The gutter
+is reserved so the page does not shift when the opening sequence locks and
+releases scrolling.

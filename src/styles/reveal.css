@@ -114,7 +114,6 @@ body::before {
   font-size: 0.8125rem;
   text-decoration: underline;
   text-underline-offset: 3px;
-  cursor: pointer;
 }
 .footer-grid button[data-copied] {
   color: var(--gold);

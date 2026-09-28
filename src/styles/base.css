@@ -6,6 +6,33 @@
   border-color: var(--border);
 }
 /* nothing on this site scrolls sideways: clip the root (clip keeps sticky working; hidden is the fallback) */
+/* The scrollbar stays: it is how a visitor knows where they are and how far
+   there is to go. Thin and in the palette on the engines that allow it, the
+   platform's own where they don't; on phones it is an overlay anyway. The
+   gutter is reserved so the page does not shift when the opening sequence
+   locks and releases scrolling. */
+@media (hover: hover) and (pointer: fine) {
+  html {
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(27 21 13 / 32%) transparent;
+    scrollbar-color: color-mix(in oklab, var(--foreground) 32%, transparent) transparent;
+  }
+  /* engines before scrollbar-color (Chrome < 121, Safari < 18.2) */
+  html::-webkit-scrollbar {
+    width: 8px;
+  }
+  html::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  html::-webkit-scrollbar-thumb {
+    background: rgb(27 21 13 / 32%);
+    border-radius: 8px;
+  }
+  html::-webkit-scrollbar-thumb:hover {
+    background: rgb(27 21 13 / 50%);
+  }
+}
 html {
   scroll-behavior: smooth;
   background: var(--background);
@@ -71,7 +98,6 @@ a:focus-visible {
   padding: 0 1.5rem;
   border: 0;
   border-radius: 999px;
-  cursor: pointer;
   background: var(--primary);
   color: var(--primary-foreground);
   font: 500 0.9375rem/1 var(--font-display);

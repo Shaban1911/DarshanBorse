@@ -30,6 +30,9 @@ All notable changes to this site. Dates are release dates.
 
 ### Added
 
+- `?debug=1` shows a small readout on any page: the motion path the head
+  script chose, the engine, whether reduced motion is on, whether the scroll
+  driver runs, and the viewport, for checking a device in the field.
 - Search: titles and descriptions per page written for the searches people
   make, a robots directive, complete share tags, and a structured-data graph
   (the practice as a financial service with address, phone, map and area
@@ -50,6 +53,11 @@ All notable changes to this site. Dates are release dates.
 
 ### Changed
 
+- The cursor is the system arrow's shape and size in the letterhead's
+  colours, as a CSS image cursor: ink on paper, paper on ink, gold over links
+  and buttons. The JavaScript dot-and-ring follower is gone.
+- The scrollbar is kept, thin and in the palette where the engine allows, with
+  the gutter reserved so the opening sequence no longer shifts the page.
 - The site is now fully static: every page is pre-rendered to HTML at build
   time and `dist/client` is the whole deployable, hosted on Cloudflare Pages.
   The worker, Nitro and the runtime server files are gone; the 404 page is

@@ -12,6 +12,9 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+/cursors/*
+  Cache-Control: public, max-age=86400
+
 # The domain is the one address search engines should know; the Pages
 # addresses serve the same site and stay out of the index.
 https://:project.pages.dev/*
