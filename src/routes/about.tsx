@@ -59,7 +59,7 @@ function AboutPage() {
         <div className="about-open-copy">
           <p className="ask-you">Who am I trusting with this?</p>
           <h1>
-            <RollText className="hero-word">You'll understand every line.</RollText>
+            <RollText className="hero-word">Someone who explains every line.</RollText>
           </h1>
           <p className="about-lead">
             I'm {legalName}, {title.toLowerCase()}. {yearsExperience} of sitting across the table
