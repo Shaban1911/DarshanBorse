@@ -54,7 +54,8 @@ All notable changes to this site. Dates are release dates.
 ### Changed
 
 - About opens with a promise instead of a stance: "You'll understand every
-  line." The lead now ends "until it makes sense to them."
+  line." The lead stays in his voice: "I'm Darshan Borse … until it makes
+  sense. Yours will too."
 - The phone ending's photograph is cut with his face at the centre of the
   disc; the caption reads "Dhule, Pune, and anywhere on WhatsApp."
 - The cursor is the system arrow's shape and size in the letterhead's

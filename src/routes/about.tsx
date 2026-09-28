@@ -62,8 +62,9 @@ function AboutPage() {
             <RollText className="hero-word">You'll understand every line.</RollText>
           </h1>
           <p className="about-lead">
-            {legalName}, {title.toLowerCase()}. {yearsExperience} of sitting across the table from
-            families and going through their money, line by line, until it makes sense to them.
+            I'm {legalName}, {title.toLowerCase()}. {yearsExperience} of sitting across the table
+            from families and going through their money, line by line, until it makes sense. Yours
+            will too.
           </p>
         </div>
         <div className="about-disc" aria-hidden="true" />
