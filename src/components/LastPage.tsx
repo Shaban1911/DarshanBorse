@@ -84,7 +84,7 @@ export function LastPage() {
         </div>
 
         <p className="hello-caption">
-          {legalName}, {title.toLowerCase()}. {cities.join(" and ")}, and anywhere on WhatsApp.{" "}
+          {legalName}, {title.toLowerCase()}. {cities.join(", ")}, and anywhere on WhatsApp.{" "}
           <WipeLink to="/about">Read my story</WipeLink>
         </p>
       </div>

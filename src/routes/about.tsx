@@ -59,11 +59,11 @@ function AboutPage() {
         <div className="about-open-copy">
           <p className="ask-you">Who am I trusting with this?</p>
           <h1>
-            <RollText className="hero-word">I'd rather explain than sell.</RollText>
+            <RollText className="hero-word">You'll understand every line.</RollText>
           </h1>
           <p className="about-lead">
-            {legalName}, {title.toLowerCase()}. {yearsExperience} of sitting across a table from
-            people and going through their money with them, line by line.
+            {legalName}, {title.toLowerCase()}. {yearsExperience} of sitting across the table from
+            families and going through their money, line by line, until it makes sense to them.
           </p>
         </div>
         <div className="about-disc" aria-hidden="true" />

@@ -53,6 +53,10 @@ All notable changes to this site. Dates are release dates.
 
 ### Changed
 
+- About opens with a promise instead of a stance: "You'll understand every
+  line." The lead now ends "until it makes sense to them."
+- The phone ending's photograph is cut with his face at the centre of the
+  disc; the caption reads "Dhule, Pune, and anywhere on WhatsApp."
 - The cursor is the system arrow's shape and size in the letterhead's
   colours, as a CSS image cursor: ink on paper, paper on ink, gold over links
   and buttons. The JavaScript dot-and-ring follower is gone.

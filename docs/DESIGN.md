@@ -29,8 +29,8 @@ That single constraint produces every other decision below.
 6. **The ending** — the ink lifts and he is at his desk. "A plan for you."
    The first message is pre-written in the visitor's voice with one blank for
    their name. One button. He reads every message himself.
-7. **About** — the letter. Who am I trusting with this? *I'd rather explain
-   than sell.* Four paragraphs, the record, the office, hello.
+7. **About** — the letter. Who am I trusting with this? *You'll understand
+   every line.* Four paragraphs, the record, the office, hello.
 
 ## Two voices
 
